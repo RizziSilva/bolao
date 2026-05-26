@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
-import { loginService } from "../../services";
-import { useAuth } from "../../context";
+import { loginService } from "@services";
+import { useAuth } from "@context";
 
 export function Navbar() {
   const { user } = useAuth();
