@@ -1,17 +1,34 @@
-import { useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./firebase";
-import Login from "./Login";
-import Dashboard from "./Dashboard";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useAuth } from "./context";
+import { ProtectedRoute, Navbar } from "./components";
+import { Bolao, Dashboard, Login } from "./pages";
 
 export default function App() {
-  const [user, setUser] = useState(undefined);
+  const { user } = useAuth();
 
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (u) => setUser(u));
-    return unsub;
-  }, []);
-
-  if (user === undefined) return <p>Loading...</p>;
-  return user ? <Dashboard user={user} /> : <Login />;
+  return (
+    <BrowserRouter>
+      {user && <Navbar />}
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/bolao"
+          element={
+            <ProtectedRoute>
+              <Bolao />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="*" element={<Navigate to="/dashboard" />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
