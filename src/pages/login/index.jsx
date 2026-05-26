@@ -1,7 +1,9 @@
 import { signInWithPopup } from "firebase/auth";
-import { auth, provider } from "../../firebase";
+import { firebaseService } from "@services";
 
 export function Login() {
+  const { auth, provider } = firebaseService();
+
   async function handleLogin() {
     try {
       await signInWithPopup(auth, provider);

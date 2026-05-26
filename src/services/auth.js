@@ -1,8 +1,9 @@
 import { signInWithPopup, signOut, GoogleAuthProvider } from "firebase/auth";
-import { auth } from "../firebase";
+import { firebaseService } from "@services";
 
 export function loginService() {
   const provider = new GoogleAuthProvider();
+  const { auth } = firebaseService();
 
   function loginWithGoogle() {
     signInWithPopup(auth, provider);

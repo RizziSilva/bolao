@@ -1,11 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
 import { loginService } from "@services";
 import { useAuth } from "@context";
+import "./style.scss";
 
 export function Navbar() {
   const { user } = useAuth();
-  const location = useLocation();
   const { logout } = loginService();
+  const location = useLocation();
 
   function renderUserImage() {
     if (!user?.photoURL) return null;
