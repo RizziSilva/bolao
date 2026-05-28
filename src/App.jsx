@@ -1,7 +1,9 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "@context";
+import { ROUTES } from "@constants";
 import { ProtectedRoute, Navbar } from "@components";
 import { Bolao, Dashboard, Login } from "@pages";
+import "./style.scss";
 
 export default function App() {
   const { user } = useAuth();
@@ -12,7 +14,7 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route
-          path="/dashboard"
+          path={ROUTES.DASHBOARD.pathname}
           element={
             <ProtectedRoute>
               <Dashboard />
@@ -20,14 +22,14 @@ export default function App() {
           }
         />
         <Route
-          path="/bolao"
+          path={ROUTES.BOLAO.pathname}
           element={
             <ProtectedRoute>
               <Bolao />
             </ProtectedRoute>
           }
         />
-        <Route path="*" element={<Navigate to="/dashboard" />} />
+        <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,5 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
+import { SmallLogo, DefaultUserImage } from "@statics";
 import { loginService } from "@services";
+import { ROUTES_ARRAY } from "@constants";
 import { useAuth } from "@context";
 import "./style.scss";
 
@@ -8,33 +10,48 @@ export function Navbar() {
   const { logout } = loginService();
   const location = useLocation();
 
-  function renderUserImage() {
-    if (!user?.photoURL) return null;
+  function getActiveClass(link) {
+    const isActive = location.pathname === link;
 
-    return <img src={user.photoURL} alt="avatar" width={32} height={32} />;
+    return isActive ? "active" : "";
+  }
+
+  function renderUserImage() {
+    const image = user?.photoURL || DefaultUserImage;
+
+    return (
+      <img
+        className="image"
+        src={image}
+        alt="Imagem de perfil do usuário"
+        width={32}
+        height={32}
+      />
+    );
+  }
+
+  function renderLinks() {
+    return ROUTES_ARRAY.map(({ label, pathname }) => (
+      <Link to={pathname} className={getActiveClass(pathname)}>
+        {label}
+      </Link>
+    ));
   }
 
   return (
     <nav>
-      <div className="nav-brand">MyApp</div>
-      <div className="nav-links">
-        <Link
-          to="/dashboard"
-          className={location.pathname === "/dashboard" ? "active" : ""}
-        >
-          Dashboard
-        </Link>
-        <Link
-          to="/bolao"
-          className={location.pathname === "/bolao" ? "active" : ""}
-        >
-          Bolãos
-        </Link>
-      </div>
-      <div className="nav-user">
-        {renderUserImage()}
-        <span>{user?.displayName}</span>
-        <button onClick={logout}>Logout</button>
+      <div className="container-header">
+        <div className="container-image">
+          <img src={SmallLogo} className="image" alt="Logo do site" />
+        </div>
+        <div className="container-links">{renderLinks()}</div>
+        <div className="container-user">
+          {renderUserImage()}
+          <span className="user-name">{user?.displayName}</span>
+          <button className="button" onClick={logout}>
+            Logout
+          </button>
+        </div>
       </div>
     </nav>
   );
