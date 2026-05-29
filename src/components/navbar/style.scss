@@ -10,11 +10,14 @@ nav {
   height: 60px;
   justify-content: center;
   padding: 10px 0;
+  position: sticky;
+  top: 0;
   width: 100%;
+  z-index: 2;
 
   > .container-header {
-    height: 100%;
     display: flex;
+    height: 100%;
     max-width: $application-max-width;
     width: 100%;
 
@@ -24,6 +27,7 @@ nav {
 
       > .image {
         height: 100%;
+        color: $mint-cream;
       }
     }
 
@@ -31,6 +35,7 @@ nav {
       align-items: center;
       display: flex;
       margin-right: auto;
+      position: relative;
 
       > a {
         color: $mint-cream;
@@ -40,9 +45,28 @@ nav {
         text-decoration: none;
 
         &.active {
-          color: $royal-gold;
-          text-decoration: underline;
-          text-underline-offset: 5px;
+          > .text {
+            color: $royal-gold;
+            text-decoration: underline;
+            text-underline-offset: 5px;
+          }
+        }
+
+        > .border {
+          background-color: transparent;
+          display: none;
+          height: 2px;
+          position: absolute;
+          top: 0;
+          width: 50%;
+
+          &.active {
+            background-color: $royal-gold;
+          }
+        }
+
+        > .image {
+          display: none;
         }
       }
     }
@@ -73,6 +97,69 @@ nav {
         font-size: 16px;
         font-weight: 500;
         padding: 5px 10px;
+      }
+    }
+  }
+
+  @include mobile {
+    border-bottom: none;
+    border-top: 1px solid $border-color;
+    bottom: 0;
+    position: fixed;
+    top: unset;
+
+    > .container-header {
+      > .container-image {
+        display: none;
+      }
+
+      > .container-links {
+        width: 100%;
+        justify-content: center;
+
+        > a {
+          align-items: center;
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          margin-right: 0;
+          text-decoration: none;
+
+          &.active {
+            > .image {
+              color: $royal-gold;
+            }
+
+            > .text {
+              text-decoration: none;
+            }
+          }
+
+          > .border {
+            background-color: transparent;
+            display: block;
+            height: 3px;
+            position: absolute;
+            top: -10px;
+            width: 50%;
+
+            &.active {
+              background-color: $royal-gold;
+            }
+          }
+
+          > .text {
+            font-size: 14px;
+          }
+
+          > .image {
+            display: block;
+          }
+        }
+      }
+
+      > .container-user {
+        display: none;
       }
     }
   }

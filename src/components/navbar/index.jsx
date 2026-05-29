@@ -31,9 +31,11 @@ export function Navbar() {
   }
 
   function renderLinks() {
-    return ROUTES_ARRAY.map(({ label, pathname }) => (
+    return ROUTES_ARRAY.map(({ label, pathname, Icon }) => (
       <Link to={pathname} className={getActiveClass(pathname)}>
-        {label}
+        <div className={`border ${getActiveClass(pathname)}`} />
+        <Icon className="image" />
+        <span className="text">{label}</span>
       </Link>
     ));
   }
