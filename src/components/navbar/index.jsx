@@ -32,12 +32,20 @@ export function Navbar() {
 
   function renderLinks() {
     return ROUTES_ARRAY.map(({ label, pathname, Icon }) => (
-      <Link to={pathname} className={getActiveClass(pathname)}>
+      <Link to={pathname} className={`link ${getActiveClass(pathname)}`}>
         <div className={`border ${getActiveClass(pathname)}`} />
         <Icon className="image" />
         <span className="text">{label}</span>
       </Link>
     ));
+  }
+
+  function renderMobileFooter() {
+    return (
+      <div className="container-footer">
+        <div className="container-links">{renderLinks()}</div>
+      </div>
+    );
   }
 
   return (
@@ -55,6 +63,7 @@ export function Navbar() {
           </button>
         </div>
       </div>
+      {renderMobileFooter()}
     </nav>
   );
 }

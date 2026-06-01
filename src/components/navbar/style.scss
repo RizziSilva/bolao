@@ -7,19 +7,18 @@ nav {
   background-color: $black;
   border-bottom: 1px solid $border-color;
   display: flex;
-  height: 60px;
+  height: $header-height;
   justify-content: center;
-  padding: 10px 0;
-  position: sticky;
-  top: 0;
+  position: relative;
   width: 100%;
-  z-index: 2;
+  padding: 10px 0;
 
   > .container-header {
     display: flex;
     height: 100%;
     max-width: $application-max-width;
     width: 100%;
+    padding: 0 20px 0 15px;
 
     > .container-image {
       height: 100%;
@@ -32,12 +31,53 @@ nav {
     }
 
     > .container-links {
+      > .link {
+        > .image {
+          display: none;
+        }
+      }
+    }
+
+    > .container-user {
+      align-items: center;
+      display: flex;
+      height: 100%;
+
+      > .image {
+        border-radius: 50%;
+        margin-right: 20px;
+      }
+
+      > .user-name {
+        color: $mint-cream;
+        font-size: 16px;
+        font-weight: 500;
+        margin-right: 20px;
+      }
+
+      > .button {
+        background-color: transparent;
+        border-radius: 5px;
+        border: 1px solid $mint-cream;
+        color: $royal-gold;
+        cursor: pointer;
+        font-family: $font-base;
+        font-size: 16px;
+        font-weight: 500;
+        padding: 5px 10px;
+      }
+    }
+  }
+
+  > .container-footer,
+  > .container-header {
+    > .container-links {
       align-items: center;
       display: flex;
       margin-right: auto;
       position: relative;
 
-      > a {
+      > .link {
         color: $mint-cream;
         font-size: 16px;
         font-weight: 500;
@@ -64,74 +104,48 @@ nav {
             background-color: $royal-gold;
           }
         }
-
-        > .image {
-          display: none;
-        }
-      }
-    }
-
-    > .container-user {
-      align-items: center;
-      display: flex;
-      height: 100%;
-
-      > .image {
-        border-radius: 50%;
-        margin-right: 20px;
-      }
-
-      > .user-name {
-        color: $mint-cream;
-        font-size: 16px;
-        font-weight: 500;
-        margin-right: 20px;
-      }
-
-      > .button {
-        background-color: $mint-cream;
-        border-radius: 5px;
-        border: none;
-        cursor: pointer;
-        font-family: $font-base;
-        font-size: 16px;
-        font-weight: 500;
-        padding: 5px 10px;
       }
     }
   }
 
-  @include mobile {
-    border-bottom: none;
-    border-top: 1px solid $border-color;
-    bottom: 0;
-    position: fixed;
-    top: unset;
+  > .container-footer {
+    display: none;
+  }
 
+  @include mobile {
     > .container-header {
-      > .container-image {
-        display: none;
-      }
+      justify-content: space-between;
 
       > .container-links {
-        width: 100%;
-        justify-content: center;
+        display: none;
+      }
+    }
 
-        > a {
+    > .container-footer {
+      background-color: $black;
+      border-top: 1px solid $border-color;
+      bottom: 0;
+      display: flex;
+      height: $header-height;
+      max-width: $application-max-width;
+      position: fixed;
+      width: 100%;
+
+      > .container-links {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+
+        > .link {
           align-items: center;
           display: flex;
           flex-direction: column;
           flex: 1;
-          margin-right: 0;
-          text-decoration: none;
 
           &.active {
             > .image {
               color: $royal-gold;
-            }
-
-            > .text {
-              text-decoration: none;
             }
           }
 
@@ -140,7 +154,6 @@ nav {
             display: block;
             height: 3px;
             position: absolute;
-            top: -10px;
             width: 50%;
 
             &.active {
@@ -151,15 +164,7 @@ nav {
           > .text {
             font-size: 14px;
           }
-
-          > .image {
-            display: block;
-          }
         }
-      }
-
-      > .container-user {
-        display: none;
       }
     }
   }
