@@ -1,0 +1,34 @@
+@use "@styles" as *;
+
+#container-bolao {
+  align-items: flex-start;
+  background-color: $graphite;
+  border-radius: 20px;
+  border: 1px solid $royal-gold;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 120px;
+  justify-content: flex-start;
+  margin: 0 20px 20px 0;
+  outline: none;
+  padding: 20px;
+  width: 390px;
+
+  > .title {
+    font-size: 20px;
+    color: $mint-cream;
+    margin-bottom: 20px;
+  }
+
+  > .points {
+    color: $royal-gold;
+    font-size: 32px;
+
+    > .text {
+      margin-left: 10px;
+      color: $mint-cream;
+      font-size: 20px;
+    }
+  }
+}
