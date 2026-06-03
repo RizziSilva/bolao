@@ -4,7 +4,7 @@ export function BolaoCard({ points, name }) {
   function handleClick() {}
 
   return (
-    <button onClick={handleClick} id="container-bolao">
+    <button onClick={handleClick} id="container-bolao-card">
       <span className="title">{name}</span>
       <span className="points">
         {points}

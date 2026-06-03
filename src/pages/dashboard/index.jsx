@@ -1,7 +1,8 @@
 import { useAuth } from "@context";
+import { BolaoCard } from "@components";
 import { DASHBOARD_CARDS } from "./constants";
+import { Card } from "./components";
 import "./style.scss";
-import { BolaoCard, Card } from "./components";
 
 export function Dashboard() {
   const { user } = useAuth();
