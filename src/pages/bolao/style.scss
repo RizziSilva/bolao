@@ -1,31 +1,112 @@
 @use "@styles" as *;
 
 #container-bolao-page {
-  display: flex;
+  align-items: center;
   background-color: $black;
+  display: flex;
   flex: 1;
   justify-content: center;
-  align-items: center;
   padding: 90px 20px 30px;
 
   > .container-content {
     display: flex;
-    width: 100%;
-    max-width: $application-max-width;
-    height: 100%;
     flex-direction: column;
+    height: 100%;
+    max-width: $application-max-width;
+    width: 100%;
 
     > .title {
-      font-size: 32px;
       color: $mint-cream;
+      font-size: 32px;
       margin-bottom: 40px;
     }
 
     > .container-groups {
       display: flex;
       flex-flow: wrap;
-      width: 100%;
       margin-bottom: 30px;
+      width: 100%;
+    }
+
+    > .container-join {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      > .container-title {
+        align-items: center;
+        display: flex;
+        margin-bottom: 40px;
+        width: 100%;
+
+        > .text {
+          color: $mint-cream;
+          font-size: 24px;
+          margin: 0 15px;
+        }
+
+        > .border {
+          background-color: $graphite;
+          border-radius: 10px;
+          display: flex;
+          flex: 1;
+          height: 2px;
+          margin-top: 3px;
+        }
+      }
+
+      > .container-content {
+        background-color: $graphite;
+        border-radius: 10px;
+        border: 1px solid $mint-cream;
+        display: flex;
+        flex-direction: column;
+        padding: 40px;
+        width: 100%;
+        max-width: 600px;
+
+        > .input {
+          background-color: $black;
+          border: 1px solid $mint-cream;
+          color: $mint-cream;
+          font-family: $font-base;
+          font-size: 30px;
+          height: 70px;
+          letter-spacing: 4px;
+          margin-bottom: 30px;
+          text-align: center;
+          width: 100%;
+        }
+
+        > .button {
+          background-color: transparent;
+          border: 1px solid $mint-cream;
+          color: $mint-cream;
+          cursor: pointer;
+          height: 50px;
+          width: 100%;
+
+          &:hover {
+            background-color: $mint-cream;
+            color: $graphite;
+          }
+        }
+      }
+    }
+  }
+
+  @include mobile {
+    > .container-content {
+      align-items: center;
+
+      > .container-groups {
+        justify-content: center;
+      }
+    }
+
+    > .container-join {
+      > .container-content {
+      }
     }
   }
 }
