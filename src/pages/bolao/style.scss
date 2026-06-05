@@ -26,6 +26,10 @@
       flex-flow: wrap;
       margin-bottom: 30px;
       width: 100%;
+
+      > .link {
+        text-decoration: none;
+      }
     }
 
     > .container-join {

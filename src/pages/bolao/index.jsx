@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { BolaoCard } from "@components";
 import "./style.scss";
 
@@ -14,8 +15,10 @@ export function Bolao() {
   }
 
   function renderBoloes() {
-    return ["", ""].map(({ name, points }) => (
-      <BolaoCard name="Copa do mundo" points={0} />
+    return ["", ""].map(({ name, points, code = "teste" }) => (
+      <Link to={`/bolao/${code}`} className="link">
+        <BolaoCard name="Copa do mundo" points={0} />
+      </Link>
     ));
   }
 
