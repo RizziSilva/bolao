@@ -1,0 +1,38 @@
+@use "@styles" as *;
+
+#container-stages-page {
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid $graphite;
+  display: flex;
+  padding: 14px 16px;
+  width: 100%;
+
+  > .container-stage {
+    background-color: transparent;
+    border-radius: 5px;
+    border: 1px solid $graphite;
+    color: $mint-cream;
+    cursor: pointer;
+    display: flex;
+    font-size: 14px;
+    margin-right: 8px;
+    outline: none;
+    padding: 5px 10px;
+
+    &.selected {
+      background-color: $royal-gold;
+      border-color: $royal-gold;
+      color: $black;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    > .text {
+      color: $mint-cream;
+      font-size: 12px;
+    }
+  }
+}

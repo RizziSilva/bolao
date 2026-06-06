@@ -1,1 +1,54 @@
 @use "@styles" as *;
+
+#container-my-group-id {
+  align-items: center;
+  background-color: $black;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  padding: 90px 20px 30px;
+
+  > .container-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-width: $application-max-width;
+    width: 100%;
+
+    > .container-upper {
+      align-items: center;
+      border-bottom: 1px solid $graphite;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 40px;
+      padding-bottom: 30px;
+      width: 100%;
+
+      > .title {
+        color: $mint-cream;
+        font-size: 32px;
+      }
+
+      > .container-game-code {
+        background-color: $graphite;
+        border: 1px solid $royal-gold;
+        cursor: text;
+        display: flex;
+        flex-direction: column;
+        padding: 10px 25px;
+
+        > .text {
+          color: $mint-cream;
+          font-size: 16px;
+        }
+
+        > .code {
+          color: $royal-gold;
+          font-size: 30px;
+          letter-spacing: 5px;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+}

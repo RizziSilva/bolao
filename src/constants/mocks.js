@@ -1,0 +1,98 @@
+export const MOCK_BOLAO = {
+  name: "Teste",
+  code: "aasded",
+};
+
+export const MOCK_TEAMS = [
+  { id: 1, name: "Mexico", acronym: "MEX", group: "A" },
+  { id: 2, name: "South Africa", acronym: "RSA", group: "A" },
+  { id: 3, name: "South Korea", acronym: "KOR", group: "A" },
+  { id: 4, name: "Czechia", acronym: "CZE", group: "A" },
+
+  { id: 5, name: "Canada", acronym: "CAN", group: "B" },
+  { id: 6, name: "Switzerland", acronym: "SUI", group: "B" },
+  { id: 7, name: "Qatar", acronym: "QAT", group: "B" },
+  { id: 8, name: "Bosnia and Herzegovina", acronym: "BIH", group: "B" },
+
+  { id: 9, name: "Brazil", acronym: "BRA", group: "C" },
+  { id: 10, name: "Morocco", acronym: "MAR", group: "C" },
+  { id: 11, name: "Scotland", acronym: "SCO", group: "C" },
+  { id: 12, name: "Haiti", acronym: "HAI", group: "C" },
+
+  { id: 13, name: "United States", acronym: "USA", group: "D" },
+  { id: 14, name: "Paraguay", acronym: "PAR", group: "D" },
+  { id: 15, name: "Australia", acronym: "AUS", group: "D" },
+  { id: 16, name: "Turkey", acronym: "TUR", group: "D" },
+
+  { id: 17, name: "Germany", acronym: "GER", group: "E" },
+  { id: 18, name: "Ecuador", acronym: "ECU", group: "E" },
+  { id: 19, name: "Ivory Coast", acronym: "CIV", group: "E" },
+  { id: 20, name: "Curacao", acronym: "CUW", group: "E" },
+
+  { id: 21, name: "Netherlands", acronym: "NED", group: "F" },
+  { id: 22, name: "Sweden", acronym: "SWE", group: "F" },
+  { id: 23, name: "Japan", acronym: "JPN", group: "F" },
+  { id: 24, name: "Tunisia", acronym: "TUN", group: "F" },
+
+  { id: 25, name: "Belgium", acronym: "BEL", group: "G" },
+  { id: 26, name: "Egypt", acronym: "EGY", group: "G" },
+  { id: 27, name: "Iran", acronym: "IRN", group: "G" },
+  { id: 28, name: "New Zealand", acronym: "NZL", group: "G" },
+
+  { id: 29, name: "Spain", acronym: "ESP", group: "H" },
+  { id: 30, name: "Uruguay", acronym: "URU", group: "H" },
+  { id: 31, name: "Saudi Arabia", acronym: "KSA", group: "H" },
+  { id: 32, name: "Cape Verde", acronym: "CPV", group: "H" },
+
+  { id: 33, name: "France", acronym: "FRA", group: "I" },
+  { id: 34, name: "Senegal", acronym: "SEN", group: "I" },
+  { id: 35, name: "Norway", acronym: "NOR", group: "I" },
+  { id: 36, name: "Iraq", acronym: "IRQ", group: "I" },
+
+  { id: 37, name: "Argentina", acronym: "ARG", group: "J" },
+  { id: 38, name: "Austria", acronym: "AUT", group: "J" },
+  { id: 39, name: "Algeria", acronym: "ALG", group: "J" },
+  { id: 40, name: "Jordan", acronym: "JOR", group: "J" },
+
+  { id: 41, name: "Portugal", acronym: "POR", group: "K" },
+  { id: 42, name: "Colombia", acronym: "COL", group: "K" },
+  { id: 43, name: "Uzbekistan", acronym: "UZB", group: "K" },
+  { id: 44, name: "DR Congo", acronym: "COD", group: "K" },
+
+  { id: 45, name: "England", acronym: "ENG", group: "L" },
+  { id: 46, name: "Croatia", acronym: "CRO", group: "L" },
+  { id: 47, name: "Ghana", acronym: "GHA", group: "L" },
+  { id: 48, name: "Panama", acronym: "PAN", group: "L" },
+];
+
+export const MOCK_STAGES = [
+  {
+    label: "Fase de Grupos",
+    id: "1",
+  },
+  {
+    label: "Primeira rodada",
+    id: "2",
+  },
+  {
+    label: "Oitavas",
+    id: "3",
+  },
+
+  {
+    label: "Quartas",
+    id: "4",
+  },
+  {
+    label: "Semi",
+    id: "5",
+  },
+  {
+    label: "3° Lugar",
+    id: "6",
+  },
+  {
+    label: "Final",
+    id: "7",
+  },
+];

@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { SmallLogo, DefaultUserImage } from "@statics";
 import { loginService } from "@services";
-import { ROUTES_ARRAY } from "@constants";
+import { ROUTES, ROUTES_ARRAY } from "@constants";
 import { useAuth } from "@context";
 import "./style.scss";
 
@@ -12,8 +12,15 @@ export function Navbar() {
 
   function getActiveClass(link) {
     const isActive = location.pathname === link;
+    const isCurrentPageBolaoDetail = location.pathname.includes(
+      ROUTES.BOLAO_DETAIL.bolaoDetailBasePathname,
+    );
+    const isBolaoOption = link === ROUTES.BOLAO.pathname;
+    const isBolaoDetailAndBolaoOption =
+      isBolaoOption && isCurrentPageBolaoDetail;
+    const shouldBeActive = isBolaoDetailAndBolaoOption || isActive;
 
-    return isActive ? "active" : "";
+    return shouldBeActive ? "active" : "";
   }
 
   function renderUserImage() {

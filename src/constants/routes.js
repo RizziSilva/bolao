@@ -11,6 +11,12 @@ export const ROUTES = {
     pathname: "/bolao",
     Icon: BolaoIcon,
   },
+  BOLAO_DETAIL: {
+    label: "Bolão Detail",
+    pathname: "/bolao/:code",
+    bolaoDetailBasePathname: "/bolao/",
+    Icon: BolaoIcon,
+  },
 };
 
 export const ROUTES_ARRAY = [ROUTES.DASHBOARD, ROUTES.BOLAO];
