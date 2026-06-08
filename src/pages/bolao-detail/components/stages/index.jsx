@@ -14,6 +14,7 @@ export function Stages({ teams, setSelectedStage, selectedStage }) {
         <button
           onClick={() => handleClick(id)}
           className={`${isSelected ? "selected" : ""} container-stage`}
+          key={id}
         >
           {label}
         </button>

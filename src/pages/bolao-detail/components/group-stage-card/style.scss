@@ -1,0 +1,55 @@
+@use "@styles" as *;
+
+#container-group-stage-card-component {
+  display: flex;
+  width: 100%;
+  flex-flow: wrap;
+  gap: 20px;
+
+  > .container-group {
+    border: 1px solid $mint-cream;
+    width: 300px;
+    padding: 10px;
+    background-color: $graphite;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+
+    > .title {
+      color: $royal-gold;
+      font-size: 20px;
+      align-self: center;
+      margin-bottom: 10px;
+    }
+
+    > .container-team {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      > .name {
+        color: $mint-cream;
+        font-size: 16px;
+      }
+
+      > .button {
+        width: 25px;
+        height: 25px;
+        background-color: transparent;
+        border: 1px solid $mint-cream;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &.selected {
+          border-color: $light-green;
+          background-color: $light-green;
+        }
+      }
+    }
+  }
+}

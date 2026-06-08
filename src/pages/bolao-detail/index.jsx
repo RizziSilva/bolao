@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { MOCK_BOLAO, MOCK_STAGES, MOCK_TEAMS } from "@constants";
-import { Stages } from "./components";
+import { GroupStageCard, Stages } from "./components";
 import "./style.scss";
 
 export function BolaoDetail() {
@@ -46,6 +46,7 @@ export function BolaoDetail() {
           selectedStage={selectedStage}
           setSelectedStage={setSelectedStage}
         />
+        <GroupStageCard />
       </div>
     </div>
   );
