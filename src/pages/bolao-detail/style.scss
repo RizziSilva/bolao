@@ -51,4 +51,12 @@
       }
     }
   }
+
+  @include mobile {
+    padding-bottom: $header-height;
+
+    > .container-content {
+      align-items: center;
+    }
+  }
 }

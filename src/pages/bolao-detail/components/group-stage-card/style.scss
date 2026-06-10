@@ -2,31 +2,33 @@
 
 #container-group-stage-card-component {
   display: flex;
-  width: 100%;
   flex-flow: wrap;
   gap: 20px;
+  justify-content: center;
+  padding-bottom: 20px;
+  width: 100%;
 
   > .container-group {
-    border: 1px solid $mint-cream;
-    width: 300px;
-    padding: 10px;
     background-color: $graphite;
+    border-radius: 10px;
+    border: 1px solid $mint-cream;
     display: flex;
     flex-direction: column;
-    border-radius: 10px;
+    padding: 10px;
+    width: 300px;
 
     > .title {
+      align-self: center;
       color: $royal-gold;
       font-size: 20px;
-      align-self: center;
       margin-bottom: 10px;
     }
 
     > .container-team {
-      width: 100%;
       display: flex;
       justify-content: space-between;
       margin-bottom: 10px;
+      width: 100%;
 
       &:last-child {
         margin-bottom: 0;
@@ -38,16 +40,16 @@
       }
 
       > .button {
-        width: 25px;
-        height: 25px;
         background-color: transparent;
-        border: 1px solid $mint-cream;
         border-radius: 5px;
+        border: 1px solid $mint-cream;
         cursor: pointer;
+        height: 25px;
+        width: 25px;
 
         &.selected {
-          border-color: $light-green;
           background-color: $light-green;
+          border-color: $light-green;
         }
       }
     }
