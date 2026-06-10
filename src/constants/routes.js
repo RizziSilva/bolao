@@ -17,6 +17,9 @@ export const ROUTES = {
     bolaoDetailBasePathname: "/bolao/",
     Icon: BolaoIcon,
   },
+  LOGIN: {
+    pathname: "/login",
+  },
 };
 
 export const ROUTES_ARRAY = [ROUTES.DASHBOARD, ROUTES.BOLAO];

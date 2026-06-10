@@ -1,9 +1,13 @@
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { signInWithPopup } from "firebase/auth";
 import { firebaseService } from "@services";
+import { GoogleIcon, SmallLogo } from "@statics";
+import { useAuth } from "@context";
 import { ROUTES } from "@constants";
+import "./style.scss";
 
 export function Login() {
+  const { user } = useAuth();
   const { auth, provider } = firebaseService();
   const navigate = useNavigate();
 
@@ -16,10 +20,32 @@ export function Login() {
     }
   }
 
-  return (
-    <div>
-      <h1>My App</h1>
-      <button onClick={handleLogin}>Sign in with Google</button>
-    </div>
-  );
+  function renderLoginPage() {
+    return (
+      <div id="container-login-page">
+        <div className="container-content">
+          <div className="container-description">
+            <img className="image" src={SmallLogo} />
+            <div className="container-texts">
+              <span className="title">Acesse a sua conta</span>
+              <span className="description">
+                Participe dos jogos e faça seus palpites
+              </span>
+            </div>
+          </div>
+          <button className="button google" onClick={handleLogin}>
+            <GoogleIcon /> Entrar com Google
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  function renderContent() {
+    if (user) return <Navigate to={ROUTES.DASHBOARD.pathname} replace />;
+
+    return renderLoginPage();
+  }
+
+  return renderContent();
 }

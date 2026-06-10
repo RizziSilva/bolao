@@ -1,0 +1,11 @@
+@use "@styles" as *;
+
+#container-protected-layout {
+  background-color: $black;
+  flex: 1;
+  padding: 90px 20px 30px;
+
+  @include mobile {
+    padding-bottom: $header-height;
+  }
+}

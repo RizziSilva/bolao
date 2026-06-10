@@ -2,11 +2,9 @@
 
 #container-bolao-page {
   align-items: center;
-  background-color: $black;
   display: flex;
   flex: 1;
   justify-content: center;
-  padding: 90px 20px 30px;
 
   > .container-content {
     display: flex;
@@ -29,6 +27,8 @@
 
       > .link {
         text-decoration: none;
+        width: 390px;
+        margin-right: 20px;
       }
     }
 
@@ -105,11 +105,19 @@
 
       > .container-groups {
         justify-content: center;
-      }
-    }
 
-    > .container-join {
-      > .container-content {
+        > .link {
+          width: 300px;
+          margin-right: 0;
+        }
+      }
+
+      > .container-join {
+        > .container-content {
+          > .input {
+            font-size: 25px;
+          }
+        }
       }
     }
   }

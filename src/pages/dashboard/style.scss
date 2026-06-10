@@ -2,11 +2,9 @@
 
 #container-dashboard {
   display: flex;
-  background-color: $black;
   flex: 1;
   justify-content: center;
   align-items: center;
-  padding: 90px 20px 30px;
 
   > .container-content {
     display: flex;
@@ -67,8 +65,6 @@
   }
 
   @include mobile {
-    padding-bottom: $header-height;
-
     > .container-content {
       align-items: center;
 

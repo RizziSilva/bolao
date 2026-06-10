@@ -11,9 +11,10 @@
   height: 120px;
   justify-content: flex-start;
   margin: 0 20px 20px 0;
+  max-width: 390px;
   outline: none;
   padding: 20px;
-  width: 390px;
+  width: 100%;
 
   > .title {
     font-size: 20px;

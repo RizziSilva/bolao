@@ -1,0 +1,77 @@
+@use "@styles" as *;
+
+#container-login-page {
+  display: flex;
+  background-color: $black;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding: 90px 20px 30px;
+
+  > .container-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 450px;
+
+    > .container-description {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      margin-bottom: 30px;
+
+      > .image {
+        width: 85px;
+        object-fit: contain;
+        margin-right: 10px;
+      }
+
+      > .container-texts {
+        display: flex;
+        flex-direction: column;
+
+        > .title {
+          font-size: 30px;
+          color: $white;
+          margin-bottom: 10px;
+        }
+
+        > .description {
+          font-size: 16px;
+          color: $white;
+        }
+      }
+    }
+
+    > .button {
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      display: flex;
+      align-items: center;
+      color: $black;
+      font-size: 16px;
+      justify-content: center;
+
+      svg {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  @include mobile-small {
+    > .container-content {
+      > .container-description {
+        > .container-texts {
+          > .title {
+            font-size: 26px;
+          }
+
+          > .description {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+}

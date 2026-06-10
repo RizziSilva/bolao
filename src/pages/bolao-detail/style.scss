@@ -2,11 +2,9 @@
 
 #container-my-group-id {
   align-items: center;
-  background-color: $black;
   display: flex;
   flex: 1;
   justify-content: center;
-  padding: 90px 20px 30px;
 
   > .container-content {
     display: flex;
