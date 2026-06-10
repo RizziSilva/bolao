@@ -1,7 +1,18 @@
+import useEmblaCarousel from "embla-carousel-react";
 import { MOCK_STAGES } from "@constants";
+import { RightArrow } from "@statics";
+import { BREACKPOINT, BUTTONS } from "../../constants";
 import "./style.scss";
 
 export function Stages({ teams, setSelectedStage, selectedStage }) {
+  const isMobile = window.innerWidth < BREACKPOINT.ACTIVE;
+  const [emblaRef, emblaApi] = useEmblaCarousel({ active: isMobile });
+
+  function handleCarouselClick(type) {
+    if (type === BUTTONS.NEXT) emblaApi?.scrollNext();
+    else if (BUTTONS.PREV) emblaApi?.scrollPrev();
+  }
+
   function handleClick(id) {
     setSelectedStage(id);
   }
@@ -22,5 +33,23 @@ export function Stages({ teams, setSelectedStage, selectedStage }) {
     });
   }
 
-  return <div id="container-stages-page">{renderStages()}</div>;
+  return (
+    <div id="container-stages-page">
+      <button
+        className="button prev"
+        onClick={() => handleCarouselClick(BUTTONS.PREV)}
+      >
+        <RightArrow />
+      </button>
+      <div className="viewport" ref={emblaRef}>
+        <div className="container">{renderStages()}</div>
+      </div>
+      <button
+        className="button"
+        onClick={() => handleCarouselClick(BUTTONS.NEXT)}
+      >
+        <RightArrow />
+      </button>
+    </div>
+  );
 }

@@ -2,6 +2,7 @@
 
 #container-stages-page {
   align-items: center;
+  align-items: center;
   border-radius: 10px;
   border: 1px solid $graphite;
   display: flex;
@@ -9,31 +10,71 @@
   padding: 14px 16px;
   width: 100%;
 
-  > .container-stage {
-    background-color: transparent;
-    border-radius: 5px;
-    border: 1px solid $graphite;
-    color: $mint-cream;
-    cursor: pointer;
+  > .button {
+    align-items: center;
+    background-color: $graphite;
+    border-radius: 50%;
+    border: none;
     display: flex;
-    font-size: 14px;
-    margin-right: 8px;
-    outline: none;
-    padding: 5px 10px;
+    display: none;
+    height: 28px;
+    width: 28px;
 
-    &.selected {
-      background-color: $royal-gold;
-      border-color: $royal-gold;
-      color: $black;
+    &.prev {
+      transform: rotate(180deg);
     }
 
-    &:last-child {
-      margin-right: 0;
+    svg {
+      color: $royal-gold;
+      height: 28px;
+      width: 28px;
     }
+  }
 
-    > .text {
-      color: $mint-cream;
-      font-size: 12px;
+  > .viewport {
+    overflow: hidden;
+    padding: 0 15px;
+    width: 100%;
+
+    > .container {
+      display: flex;
+      gap: 16px;
+
+      > .container-stage {
+        background-color: transparent;
+        border-radius: 5px;
+        border: 1px solid $graphite;
+        color: $mint-cream;
+        cursor: pointer;
+        display: flex;
+        flex-shrink: 0;
+        font-size: 14px;
+        margin-right: 8px;
+        outline: none;
+        padding: 5px 10px;
+        width: max-content;
+
+        &.selected {
+          background-color: $royal-gold;
+          border-color: $royal-gold;
+          color: $black;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        > .text {
+          color: $mint-cream;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+
+  @include stages-carousel-mobile {
+    > .button {
+      display: flex;
     }
   }
 }
