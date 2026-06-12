@@ -1,0 +1,66 @@
+@use "@styles" as *;
+
+#container-matchs-component {
+  display: flex;
+  flex-direction: column;
+
+  > .container-day-matchs {
+    display: flex;
+    flex-direction: column;
+
+    > .container-header {
+      display: flex;
+      align-items: center;
+      border: 0.5px solid $mint-cream;
+      border-radius: 5px;
+      padding: 8px;
+      margin-bottom: 10px;
+
+      > .text {
+        font-size: 14px;
+        color: $mint-cream;
+      }
+    }
+
+    > .container-match {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: $graphite;
+      padding: 10px;
+      border: 0.5px solid $mint-cream;
+      margin-bottom: 10px;
+      border-radius: 10px;
+
+      > .container-info {
+        display: flex;
+        flex-direction: column;
+
+        > .info {
+          font-size: 12px;
+          color: $clear-text;
+        }
+
+        > .date {
+          font-size: 16px;
+          color: $mint-cream;
+        }
+
+        > .status {
+          font-size: 14px;
+          color: $clear-text;
+        }
+      }
+
+      > .container-status {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        > .status {
+          color: $mint-cream;
+        }
+      }
+    }
+  }
+}
