@@ -4,11 +4,13 @@ export function Matchs({ matchs = ["", ""] }) {
   function renderTeams() {
     return (
       <>
-        <span className="team">México MX</span>
+        <span className="team">México</span>
+        <span className="acronym">MX</span>
         <input className="input" />
         <span className="versus">x</span>
         <input className="input" />
-        <span className="team">Ca Canadá</span>
+        <span className="acronym">CA</span>
+        <span className="team right"> Canadá</span>
       </>
     );
   }

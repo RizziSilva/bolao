@@ -15,3 +15,9 @@
     @content;
   }
 }
+
+@mixin match-card-mobile {
+  @media (max-width: 820px) {
+    @content;
+  }
+}
