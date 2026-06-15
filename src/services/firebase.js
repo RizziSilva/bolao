@@ -1,17 +1,27 @@
+import {
+  API_KEY,
+  APP_ID,
+  AUTH_DOAMIN,
+  DATABASE_URL,
+  MEASUREMENT_ID,
+  MESSAGING_SENDER_ID,
+  PROJECT_ID,
+  STORAGE_BUCKET,
+} from "@constants";
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 export function firebaseService() {
   const firebaseConfig = {
-    apiKey: "AIzaSyBKRYqY7hYzRlZ6_kB0oofZCiPkmVe-MSI",
-    authDomain: "bolao-f5239.firebaseapp.com",
-    databaseURL: "https://bolao-f5239-default-rtdb.firebaseio.com",
-    projectId: "bolao-f5239",
-    storageBucket: "bolao-f5239.firebasestorage.app",
-    messagingSenderId: "32289112107",
-    appId: "1:32289112107:web:2c318d126659c899a3aa6e",
-    measurementId: "G-BRJT4T6TBH",
+    apiKey: API_KEY,
+    authDomain: AUTH_DOAMIN,
+    databaseURL: DATABASE_URL,
+    projectId: PROJECT_ID,
+    storageBucket: STORAGE_BUCKET,
+    messagingSenderId: MESSAGING_SENDER_ID,
+    appId: APP_ID,
+    measurementId: MEASUREMENT_ID,
   };
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
