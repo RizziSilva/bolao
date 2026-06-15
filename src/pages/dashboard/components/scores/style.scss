@@ -1,0 +1,12 @@
+@use "@styles" as *;
+
+#container-score-cards-component {
+  display: flex;
+  flex-flow: wrap;
+  width: 100%;
+  margin-bottom: 30px;
+
+  @include mobile {
+    justify-content: center;
+  }
+}

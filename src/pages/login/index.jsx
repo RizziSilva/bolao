@@ -1,6 +1,5 @@
 import { Navigate, useNavigate } from "react-router-dom";
-import { signInWithPopup } from "firebase/auth";
-import { firebaseService } from "@services";
+import { firebaseService, loginService } from "@services";
 import { GoogleIcon, SmallLogo } from "@statics";
 import { useAuth } from "@context";
 import { ROUTES } from "@constants";
@@ -9,11 +8,12 @@ import "./style.scss";
 export function Login() {
   const { user } = useAuth();
   const { auth, provider } = firebaseService();
+  const { loginWithGoogle } = loginService();
   const navigate = useNavigate();
 
   async function handleLogin() {
     try {
-      await signInWithPopup(auth, provider);
+      await loginWithGoogle(auth, provider);
       navigate(ROUTES.DASHBOARD.pathname);
     } catch (err) {
       console.error(err);

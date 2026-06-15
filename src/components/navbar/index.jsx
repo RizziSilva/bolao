@@ -10,6 +10,10 @@ export function Navbar() {
   const { logout } = loginService();
   const location = useLocation();
 
+  async function handleLogoutClick() {
+    await logout();
+  }
+
   function getActiveClass(link) {
     const isActive = location.pathname === link;
     const isCurrentPageBolaoDetail = location.pathname.includes(
@@ -39,7 +43,11 @@ export function Navbar() {
 
   function renderLinks() {
     return ROUTES_ARRAY.map(({ label, pathname, Icon }) => (
-      <Link to={pathname} className={`link ${getActiveClass(pathname)}`}>
+      <Link
+        key={pathname}
+        to={pathname}
+        className={`link ${getActiveClass(pathname)}`}
+      >
         <div className={`border ${getActiveClass(pathname)}`} />
         <Icon className="image" />
         <span className="text">{label}</span>
@@ -65,7 +73,7 @@ export function Navbar() {
         <div className="container-user">
           {renderUserImage()}
           <span className="user-name">{user?.displayName}</span>
-          <button className="button" onClick={logout}>
+          <button className="button" onClick={handleLogoutClick}>
             Logout
           </button>
         </div>

@@ -10,7 +10,8 @@
       "@styles": ["./src/styles"],
       "@statics": ["./src/statics"],
       "@constants": ["./src/constants"],
-      "@layouts": ["./src/layouts"]
+      "@layouts": ["./src/layouts"],
+      "@entities": ["./src/entities"]
     }
   },
   "include": ["./src/**/*"]

@@ -12,21 +12,30 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
+const firebaseConfig = {
+  apiKey: API_KEY,
+  authDomain: AUTH_DOAMIN,
+  databaseURL: DATABASE_URL,
+  projectId: PROJECT_ID,
+  storageBucket: STORAGE_BUCKET,
+  messagingSenderId: MESSAGING_SENDER_ID,
+  appId: APP_ID,
+  measurementId: MEASUREMENT_ID,
+};
+
+let firebaseInstance = null;
+
 export function firebaseService() {
-  const firebaseConfig = {
-    apiKey: API_KEY,
-    authDomain: AUTH_DOAMIN,
-    databaseURL: DATABASE_URL,
-    projectId: PROJECT_ID,
-    storageBucket: STORAGE_BUCKET,
-    messagingSenderId: MESSAGING_SENDER_ID,
-    appId: APP_ID,
-    measurementId: MEASUREMENT_ID,
-  };
+  if (firebaseInstance) {
+    return firebaseInstance;
+  }
+
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
   const db = getFirestore(app);
 
-  return { auth, provider, db };
+  firebaseInstance = { auth, provider, db };
+
+  return firebaseInstance;
 }

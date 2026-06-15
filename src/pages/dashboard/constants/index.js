@@ -1,1 +1,1 @@
-export { DASHBOARD_CARDS } from "./cards";
+export { DASHBOARD_CARDS, CARDS } from "./cards";

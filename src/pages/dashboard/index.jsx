@@ -1,21 +1,14 @@
 import { useAuth } from "@context";
 import { BolaoCard } from "@components";
-import { DASHBOARD_CARDS } from "./constants";
-import { Card } from "./components";
+import { ScoreCards } from "./components";
 import "./style.scss";
 
 export function Dashboard() {
   const { user } = useAuth();
 
-  function renderCards() {
-    return DASHBOARD_CARDS.map(({ color, title, description }) => (
-      <Card color={color} title={title} description={description} />
-    ));
-  }
-
   function renderBoloes() {
     return ["", ""].map(({ name, points }) => (
-      <BolaoCard name="Copa do mundo" points={0} />
+      <BolaoCard key={name} name="Copa do mundo" points={0} />
     ));
   }
 
@@ -25,7 +18,7 @@ export function Dashboard() {
         <span className="title">
           Bem vindo, <span className="user">{user.displayName}</span>.
         </span>
-        <div className="container-cards">{renderCards()}</div>
+        <ScoreCards />
         <div className="container-games">
           <div className="container-title">
             <div className="border" />
