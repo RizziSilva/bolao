@@ -1,12 +1,25 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { poolService } from "@services";
 import { BolaoCard } from "@components";
+import { useAsyncRequest } from "@hooks";
+import { useAuth } from "@context";
 import "./style.scss";
 
 export function Bolao() {
   const [code, setCode] = useState("");
+  const { user } = useAuth();
+  const { joinPool } = poolService();
+  const { asyncRequest } = useAsyncRequest();
 
-  function handleClick() {}
+  // TODO silva.william 16/06/2026: Lidar com o erro e sucesso ao entrar no bolão.
+  async function handleClick() {
+    try {
+      await asyncRequest(() => joinPool(code, user.uid));
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   function handleChange(event) {
     const { value } = event.target;
