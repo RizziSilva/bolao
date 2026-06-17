@@ -1,1 +1,1 @@
-export { DASHBOARD_CARDS, CARDS } from "./cards";
+export { DASHBOARD_CARDS, CARDS, SCORES_INITIAL_STATE } from "./cards";

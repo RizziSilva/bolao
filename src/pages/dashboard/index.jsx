@@ -1,14 +1,42 @@
+import { useEffect, useState } from "react";
 import { useAuth } from "@context";
 import { BolaoCard } from "@components";
+import { SCORES_KEYS } from "@constants";
+import { useAsyncRequest } from "@hooks";
+import { poolService } from "@services";
 import { ScoreCards } from "./components";
 import "./style.scss";
+import { Link } from "react-router-dom";
 
 export function Dashboard() {
+  const [pools, setPools] = useState([]);
   const { user } = useAuth();
+  const { asyncRequest } = useAsyncRequest();
+  const { getUserPools } = poolService();
+
+  // TODO silva.william 16/06/2026: Lidar com o erro e sucesso ao buscar os bolões.
+  useEffect(() => {
+    async function getPools() {
+      try {
+        const data = await asyncRequest(() => getUserPools(user.uid));
+        setPools(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    getPools();
+  }, []);
 
   function renderBoloes() {
-    return ["", ""].map(({ name, points }) => (
-      <BolaoCard key={name} name="Copa do mundo" points={0} />
+    return pools.map(({ name, code, scores }) => (
+      <Link key={code} to={`/bolao/${code}`} className="link">
+        <BolaoCard
+          key={name}
+          name={name}
+          points={scores[SCORES_KEYS.TOTAL_POINTS]}
+        />
+      </Link>
     ));
   }
 
@@ -18,7 +46,7 @@ export function Dashboard() {
         <span className="title">
           Bem vindo, <span className="user">{user.displayName}</span>.
         </span>
-        <ScoreCards />
+        <ScoreCards pools={pools} />
         <div className="container-games">
           <div className="container-title">
             <div className="border" />

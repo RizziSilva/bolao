@@ -10,3 +10,4 @@ export {
   DATABASE_URL,
   MEASUREMENT_ID,
 } from "./env";
+export { SCORES_KEYS } from "./pools";

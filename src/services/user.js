@@ -1,4 +1,4 @@
-import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { firebaseService } from "./firebase";
 
 export function userService() {
@@ -20,10 +20,5 @@ export function userService() {
     }
   }
 
-  function subscribeToUserScores(userId, callback) {
-    const ref = doc(db, "users", userId);
-    return onSnapshot(ref, (snap) => callback(snap.data()));
-  }
-
-  return { saveUserIfNotExists, subscribeToUserScores };
+  return { saveUserIfNotExists };
 }

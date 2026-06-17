@@ -1,21 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { poolService } from "@services";
 import { BolaoCard } from "@components";
 import { useAsyncRequest } from "@hooks";
 import { useAuth } from "@context";
+import { SCORES_KEYS } from "@constants";
 import "./style.scss";
 
 export function Bolao() {
+  const [pools, setPools] = useState([]);
   const [code, setCode] = useState("");
   const { user } = useAuth();
-  const { joinPool } = poolService();
+  const { joinPool, getUserPools } = poolService();
   const { asyncRequest } = useAsyncRequest();
+
+  useEffect(() => {
+    getPools();
+  }, []);
+
+  // TODO silva.william 16/06/2026: Lidar com o erro e sucesso ao buscar os bolões.
+  async function getPools() {
+    try {
+      const data = await asyncRequest(() => getUserPools(user.uid));
+      setPools(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   // TODO silva.william 16/06/2026: Lidar com o erro e sucesso ao entrar no bolão.
   async function handleClick() {
     try {
       await asyncRequest(() => joinPool(code, user.uid));
+      await getPools();
     } catch (error) {
       console.error(error);
     }
@@ -28,9 +45,9 @@ export function Bolao() {
   }
 
   function renderBoloes() {
-    return ["", ""].map(({ name, points, code = "teste" }) => (
-      <Link to={`/bolao/${code}`} className="link">
-        <BolaoCard name="Copa do mundo" points={0} />
+    return pools.map(({ name, scores, code }) => (
+      <Link key={code} to={`/bolao/${code}`} className="link">
+        <BolaoCard name={name} points={scores[[SCORES_KEYS.TOTAL_POINTS]]} />
       </Link>
     ));
   }

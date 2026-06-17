@@ -1,5 +1,6 @@
 import {
   collection,
+  collectionGroup,
   doc,
   getDoc,
   getDocs,
@@ -8,6 +9,7 @@ import {
   where,
 } from "firebase/firestore";
 import { firebaseService } from "./firebase";
+import { SCORES_KEYS } from "@constants";
 
 export function poolService() {
   const { db } = firebaseService();
@@ -35,9 +37,37 @@ export function poolService() {
       totalPoints: 0,
       roundPoints: 0,
       perfectScores: 0,
+      userId,
       joinedAt: new Date(),
     });
   }
 
-  return { joinPool };
+  async function getUserPools(userId) {
+    const membersRef = collectionGroup(db, "members");
+    const membersQuery = query(membersRef, where("userId", "==", userId));
+    const membersSnap = await getDocs(membersQuery);
+    const pools = await Promise.all(
+      membersSnap.docs.map(async (memberDoc) => {
+        const memberData = memberDoc.data();
+        const poolId = memberDoc.ref.parent.parent.id;
+        const poolSnap = await getDoc(doc(db, "pools", poolId));
+        const poolData = poolSnap.data();
+        return {
+          id: poolId,
+          code: poolData.code,
+          name: poolData.name,
+          scores: {
+            [SCORES_KEYS.TOTAL_POINTS]: memberData[SCORES_KEYS.TOTAL_POINTS],
+            [SCORES_KEYS.ROUND_POINTS]: memberData[SCORES_KEYS.ROUND_POINTS],
+            [SCORES_KEYS.PERFECT_SCORES]:
+              memberData[SCORES_KEYS.PERFECT_SCORES],
+          },
+        };
+      }),
+    );
+
+    return pools;
+  }
+
+  return { joinPool, getUserPools };
 }

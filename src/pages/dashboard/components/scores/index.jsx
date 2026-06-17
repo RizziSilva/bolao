@@ -1,35 +1,24 @@
-import { useEffect, useState } from "react";
-import { useAuth } from "@context";
-import { userService } from "@services";
-import { DASHBOARD_CARDS, CARDS } from "../../constants";
+import { useMemo } from "react";
+import { DASHBOARD_CARDS, SCORES_INITIAL_STATE } from "../../constants";
 import { Card } from "../card";
 import "./style.scss";
+import { SCORES_KEYS } from "@constants";
 
-// TODO silva.william 15/06/2026: Fazer algo com o isLoading para indicar que as informações estão sendo carregadas
-export function ScoreCards() {
-  const { user } = useAuth();
-  const [scores, setScores] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-  const { subscribeToUserScores } = userService();
-
-  useEffect(() => {
-    let unsub = null;
-
-    function subscribe() {
-      unsub = subscribeToUserScores(user.uid, (data) => {
-        setScores({
-          [CARDS.POINTS.pointsKey]: data[CARDS.POINTS.pointsKey],
-          [CARDS.ROUND_POINTS.pointsKey]: data[CARDS.ROUND_POINTS.pointsKey],
-          [CARDS.CORRECT_GUESS.pointsKey]: data[CARDS.CORRECT_GUESS.pointsKey],
-        });
-        setIsLoading(false);
-      });
-    }
-
-    if (user) subscribe();
-
-    return () => unsub();
-  }, [user]);
+export function ScoreCards({ pools }) {
+  const totalScores = useMemo(() => {
+    return pools.reduce(
+      (acc, pool) => ({
+        [SCORES_KEYS.TOTAL_POINTS]:
+          acc[SCORES_KEYS.TOTAL_POINTS] + pool.scores[SCORES_KEYS.TOTAL_POINTS],
+        [SCORES_KEYS.ROUND_POINTS]:
+          acc[SCORES_KEYS.ROUND_POINTS] + pool.scores[SCORES_KEYS.ROUND_POINTS],
+        [SCORES_KEYS.PERFECT_SCORES]:
+          acc[SCORES_KEYS.PERFECT_SCORES] +
+          pool.scores[SCORES_KEYS.PERFECT_SCORES],
+      }),
+      SCORES_INITIAL_STATE,
+    );
+  }, [pools.length]);
 
   function renderCards() {
     return DASHBOARD_CARDS.map(({ color, title, description, pointsKey }) => (
@@ -37,7 +26,7 @@ export function ScoreCards() {
         color={color}
         title={title}
         description={description}
-        score={scores[pointsKey]}
+        score={totalScores[pointsKey]}
         key={title}
       />
     ));

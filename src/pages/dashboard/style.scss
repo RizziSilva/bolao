@@ -53,6 +53,12 @@
         display: flex;
         flex-flow: wrap;
         width: 100%;
+
+        > .link {
+          text-decoration: none;
+          width: 390px;
+          margin-right: 20px;
+        }
       }
     }
   }
@@ -68,6 +74,11 @@
       > .container-games {
         > .container-groups {
           justify-content: center;
+
+          > .link {
+            width: 300px;
+            margin-right: 0;
+          }
         }
       }
     }
