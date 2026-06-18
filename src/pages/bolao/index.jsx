@@ -45,11 +45,23 @@ export function Bolao() {
   }
 
   function renderBoloes() {
+    const hasPools = pools.length;
+
+    if (!hasPools) return renderWithoutPoolsMessage();
+
     return pools.map(({ name, scores, code }) => (
       <Link key={code} to={`/bolao/${code}`} className="link">
         <BolaoCard name={name} points={scores[[SCORES_KEYS.TOTAL_POINTS]]} />
       </Link>
     ));
+  }
+
+  function renderWithoutPoolsMessage() {
+    return (
+      <span className="warning">
+        Cadastre-se em um bolão e comece a palpitar agora!
+      </span>
+    );
   }
 
   return (

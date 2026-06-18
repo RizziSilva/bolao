@@ -29,6 +29,10 @@ export function Dashboard() {
   }, []);
 
   function renderBoloes() {
+    const hasPools = pools.length;
+
+    if (!hasPools) return renderWithoutPoolsMessage();
+
     return pools.map(({ name, code, scores }) => (
       <Link key={code} to={`/bolao/${code}`} className="link">
         <BolaoCard
@@ -38,6 +42,14 @@ export function Dashboard() {
         />
       </Link>
     ));
+  }
+
+  function renderWithoutPoolsMessage() {
+    return (
+      <span className="warning">
+        Cadastre-se em um bolão e comece a palpitar agora!
+      </span>
+    );
   }
 
   return (

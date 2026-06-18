@@ -54,6 +54,11 @@
         flex-flow: wrap;
         width: 100%;
 
+        > .warning {
+          font-size: 20px;
+          color: $mint-cream;
+        }
+
         > .link {
           text-decoration: none;
           width: 390px;
