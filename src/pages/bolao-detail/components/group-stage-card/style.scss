@@ -37,6 +37,10 @@
       > .name {
         color: $mint-cream;
         font-size: 16px;
+
+        > .acronym {
+          font-size: 14px;
+        }
       }
 
       > .button {

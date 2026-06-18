@@ -1,0 +1,29 @@
+@use "@styles" as *;
+
+#confirm-button-component {
+  align-items: center;
+  background-color: $black;
+  border-top: 1px solid $royal-gold;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  position: fixed;
+  width: 100%;
+
+  > .button {
+    background-color: $dark-green;
+    border-radius: 10px;
+    border: none;
+    color: $mint-cream;
+    cursor: pointer;
+    font-size: 18px;
+    height: 50px;
+    max-width: 600px;
+    width: 100%;
+  }
+
+  @include mobile {
+    bottom: $header-height;
+  }
+}

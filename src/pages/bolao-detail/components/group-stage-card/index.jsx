@@ -42,7 +42,7 @@ export function GroupStageCard() {
       return (
         <div key={id} className="container-team">
           <span className="name">
-            {name} - {acronym}
+            {name} - <span className="acronym">{acronym}</span>
           </span>
           <button
             className={`button ${isSelected ? "selected" : ""}`}

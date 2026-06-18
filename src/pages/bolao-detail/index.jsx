@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { MOCK_BOLAO, MOCK_STAGES, MOCK_TEAMS } from "@constants";
-import { GroupStageCard, Matchs, Stages } from "./components";
+import { ConfirmButton, GroupStageCard, Matchs, Stages } from "./components";
 import "./style.scss";
 
 export function BolaoDetail() {
@@ -33,6 +33,7 @@ export function BolaoDetail() {
 
   return (
     <div id="container-my-group-id">
+      <ConfirmButton />
       <div className="container-content">
         <div className="container-upper">
           <span className="title">{bolao.name}</span>
@@ -46,8 +47,8 @@ export function BolaoDetail() {
           selectedStage={selectedStage}
           setSelectedStage={setSelectedStage}
         />
-        {/* <GroupStageCard /> */}
-        <Matchs />
+        <GroupStageCard />
+        {/* <Matchs /> */}
       </div>
     </div>
   );
