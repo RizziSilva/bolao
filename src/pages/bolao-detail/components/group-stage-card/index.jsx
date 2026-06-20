@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MOCK_TEAMS } from "@constants";
+import { TEAMS } from "@constants";
 import "./style.scss";
 
 export function GroupStageCard() {
@@ -27,7 +27,7 @@ export function GroupStageCard() {
   }
 
   function getTeamsAsGroups() {
-    return MOCK_TEAMS.reduce((groups, team) => {
+    return TEAMS.reduce((groups, team) => {
       if (!groups[team.group]) groups[team.group] = [];
 
       groups[team.group].push(team);

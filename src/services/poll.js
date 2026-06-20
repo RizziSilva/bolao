@@ -69,5 +69,5 @@ export function poolService() {
     return pools;
   }
 
-  return { joinPool, getUserPools };
+  return { joinPool, getUserPools, getPoolByCode };
 }

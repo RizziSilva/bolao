@@ -1,9 +1,4 @@
-export const MOCK_BOLAO = {
-  name: "Teste",
-  code: "aasded",
-};
-
-export const MOCK_TEAMS = [
+export const TEAMS = [
   { id: 1, name: "México", acronym: "MEX", group: "A" },
   { id: 2, name: "Coreia do Sul", acronym: "COR", group: "A" },
   { id: 3, name: "África do Sul", acronym: "AFS", group: "A" },
@@ -52,36 +47,4 @@ export const MOCK_TEAMS = [
   { id: 46, name: "Croácia", acronym: "CRO", group: "L" },
   { id: 47, name: "Panamá", acronym: "PAN", group: "L" },
   { id: 48, name: "Gana", acronym: "GAN", group: "L" },
-];
-
-export const MOCK_STAGES = [
-  {
-    label: "Fase de Grupos",
-    id: "1",
-  },
-  {
-    label: "Primeira rodada",
-    id: "2",
-  },
-  {
-    label: "Oitavas",
-    id: "3",
-  },
-
-  {
-    label: "Quartas",
-    id: "4",
-  },
-  {
-    label: "Semi",
-    id: "5",
-  },
-  {
-    label: "3° Lugar",
-    id: "6",
-  },
-  {
-    label: "Final",
-    id: "7",
-  },
 ];

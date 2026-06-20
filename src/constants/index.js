@@ -1,5 +1,4 @@
 export { ROUTES, ROUTES_ARRAY } from "./routes";
-export { MOCK_BOLAO, MOCK_TEAMS, MOCK_STAGES } from "./mocks";
 export {
   API_KEY,
   AUTH_DOAMIN,
@@ -11,3 +10,5 @@ export {
   MEASUREMENT_ID,
 } from "./env";
 export { SCORES_KEYS } from "./pools";
+export { STAGES_ARRAY, STAGES } from "./stages";
+export { TEAMS } from "./teams";

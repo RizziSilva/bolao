@@ -5,6 +5,7 @@
   display: flex;
   flex: 1;
   justify-content: center;
+  padding-bottom: $confirm-button-height;
   position: relative;
 
   > .container-content {
@@ -52,8 +53,6 @@
   }
 
   @include mobile {
-    padding-bottom: $confirm-button-height;
-
     > .container-content {
       align-items: center;
     }

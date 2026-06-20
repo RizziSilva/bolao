@@ -1,34 +1,31 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { MOCK_BOLAO, MOCK_STAGES, MOCK_TEAMS } from "@constants";
-import { ConfirmButton, GroupStageCard, Matchs, Stages } from "./components";
+import { useAsyncRequest } from "@hooks";
+import { STAGES } from "@constants";
+import { poolService } from "@services";
+import { ConfirmButton, Stages, StagesSelector } from "./components";
 import "./style.scss";
 
 export function BolaoDetail() {
-  const [bolao, setBolao] = useState({});
-  const [teams, setTeams] = useState([]);
-  const [selectedStage, setSelectedStage] = useState(MOCK_STAGES[0].id);
+  const [pool, setPool] = useState({});
+  const [selectedStage, setSelectedStage] = useState(STAGES.GROUP.id);
   const { code } = useParams();
+  const { getPoolByCode } = poolService();
+  const { asyncRequest } = useAsyncRequest();
 
   useEffect(() => {
-    async function getBolãoInfo() {
+    // TODO silva.william 16/06/2026: Lidar com o erro e sucesso ao buscar o bolão.
+    async function getPoolInfo() {
       try {
-        setBolao(MOCK_BOLAO);
+        const data = await asyncRequest(() => getPoolByCode(code));
+
+        setPool(data);
       } catch (error) {
         console.error(error);
       }
     }
 
-    async function getTeams() {
-      try {
-        setTeams(MOCK_TEAMS);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    getBolãoInfo();
-    getTeams();
+    getPoolInfo();
   }, [code]);
 
   return (
@@ -36,19 +33,17 @@ export function BolaoDetail() {
       <ConfirmButton />
       <div className="container-content">
         <div className="container-upper">
-          <span className="title">{bolao.name}</span>
+          <span className="title">{pool.name}</span>
           <div className="container-game-code">
             <span className="text">Código</span>
-            <span className="code">{bolao.code}</span>
+            <span className="code">{pool.code}</span>
           </div>
         </div>
-        <Stages
-          teams={teams}
+        <StagesSelector
           selectedStage={selectedStage}
           setSelectedStage={setSelectedStage}
         />
-        <GroupStageCard />
-        {/* <Matchs /> */}
+        <Stages selectedStage={selectedStage} />
       </div>
     </div>
   );
