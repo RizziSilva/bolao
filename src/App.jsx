@@ -23,7 +23,11 @@ export default function App() {
           <Route element={<ProtectedLayout />}>
             <Route
               path={ROUTES.BOLAO_DETAIL.pathname}
-              element={<BolaoDetail />}
+              element={
+                <ProtectedRoute>
+                  <BolaoDetail />
+                </ProtectedRoute>
+              }
             />
             <Route
               path={ROUTES.DASHBOARD.pathname}

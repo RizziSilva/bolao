@@ -30,7 +30,6 @@ export function BolaoDetail() {
 
   return (
     <div id="container-my-group-id">
-      <ConfirmButton />
       <div className="container-content">
         <div className="container-upper">
           <span className="title">{pool.name}</span>
@@ -43,7 +42,7 @@ export function BolaoDetail() {
           selectedStage={selectedStage}
           setSelectedStage={setSelectedStage}
         />
-        <Stages selectedStage={selectedStage} />
+        <Stages selectedStage={selectedStage} poolId={pool.id} />
       </div>
     </div>
   );

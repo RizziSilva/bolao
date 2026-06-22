@@ -1,9 +1,51 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TEAMS } from "@constants";
+import { useAuth } from "@context";
+import { guessService } from "@services";
+import { useAsyncRequest } from "@hooks";
+import { handleUserGroupGuesses } from "../../utils";
+import { ConfirmButton } from "../confirm-button";
 import "./style.scss";
 
-export function GroupStageCard() {
+export function GroupStageCard({ poolId }) {
   const [selectedTeams, setSelectedTeams] = useState({});
+  const { user } = useAuth();
+  const { asyncRequest } = useAsyncRequest();
+  const { getGroupGuesses: getGroupGuess, saveGroupGuess } = guessService();
+
+  useEffect(() => {
+    // TODO silva.william 22/06/2026: Adicionar feedback para erro na busca dos palpites.
+    async function getUserGroupGuesses() {
+      try {
+        const data = await asyncRequest(() => getGroupGuess(poolId, user.uid));
+        const initialGuesses = handleUserGroupGuesses(data);
+
+        setSelectedTeams(initialGuesses);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    if (poolId) getUserGroupGuesses();
+  }, [poolId]);
+
+  // TODO silva.william 22/06/2026: Adicionar feedback para erro e sucesso no cadastro dos palpites.
+  async function handleSaveGuesses() {
+    try {
+      const guesses = [];
+      const selectedTeamsArray = Object.entries(selectedTeams);
+
+      selectedTeamsArray.forEach(([key, value]) => {
+        const hasTwoQualifiers = value.length === 2;
+
+        if (hasTwoQualifiers) guesses.push({ groupId: key, qualifiers: value });
+      });
+
+      await asyncRequest(() => saveGroupGuess(poolId, user.uid, guesses));
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   function handleSelectedTeam(group, teamId) {
     setSelectedTeams((current) => {
@@ -65,6 +107,9 @@ export function GroupStageCard() {
   }
 
   return (
-    <div id="container-group-stage-card-component">{renderGroupCards()}</div>
+    <>
+      <ConfirmButton handleConfirmClick={handleSaveGuesses} />
+      <div id="container-group-stage-card-component">{renderGroupCards()}</div>
+    </>
   );
 }
