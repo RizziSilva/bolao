@@ -22,6 +22,7 @@
       > .text {
         font-size: 14px;
         color: $mint-cream;
+        text-transform: capitalize;
       }
     }
 
@@ -63,9 +64,13 @@
           color: $mint-cream;
           font-size: 16px;
           margin-right: 10px;
+          text-align: end;
+          width: 252px;
+          text-overflow: ellipsis;
 
           &.right {
             margin: 0 0 0 10px;
+            text-align: start;
           }
         }
 
@@ -128,6 +133,13 @@
           > .status {
             font-size: 16px;
             color: $mint-cream;
+          }
+        }
+
+        > .container-teams {
+          > .team {
+            font-size: 14px;
+            width: 100px;
           }
         }
       }
