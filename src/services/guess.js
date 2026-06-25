@@ -46,5 +46,24 @@ export function guessService() {
     return snap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   }
 
-  return { saveGroupGuess, getGroupGuesses };
+  async function saveMatchesGuesses(poolId, userId, guesses, stage) {
+    const batch = writeBatch(db);
+    console.log("guesses", guesses);
+    guesses.forEach(({ matchId, homeScore, awayScore }) => {
+      const ref = doc(db, "pools", poolId, "guesses", `${userId}_${matchId}`);
+      batch.set(ref, {
+        userId,
+        matchId,
+        stage,
+        homeScore: Number(homeScore),
+        awayScore: Number(awayScore),
+        points: 0,
+        createdAt: new Date(),
+      });
+    });
+
+    await batch.commit();
+  }
+
+  return { saveGroupGuess, getGroupGuesses, saveMatchesGuesses };
 }

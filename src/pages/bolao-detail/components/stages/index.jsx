@@ -41,6 +41,7 @@ export function Stages({ selectedStage, poolId }) {
       default:
         return (
           <Matchs
+            poolId={poolId}
             selectedStage={selectedStage}
             matchs={getSelectedStageMatches()}
           />

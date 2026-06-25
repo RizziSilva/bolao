@@ -12,61 +12,66 @@
     width: 100%;
 
     > .container-header {
-      display: flex;
       align-items: center;
-      border: 0.5px solid $mint-cream;
       border-radius: 5px;
-      padding: 8px;
+      border: 0.5px solid $mint-cream;
+      display: flex;
       margin-bottom: 10px;
+      padding: 8px;
 
       > .text {
-        font-size: 14px;
         color: $mint-cream;
+        font-size: 14px;
         text-transform: capitalize;
       }
     }
 
     > .container-match {
-      display: flex;
-      justify-content: space-between;
       align-items: center;
       background-color: $graphite;
-      padding: 10px;
-      border: 0.5px solid $mint-cream;
-      margin-bottom: 10px;
       border-radius: 10px;
+      border: 0.5px solid $mint-cream;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding: 10px;
 
       > .container-info {
         display: flex;
         flex-direction: column;
 
         > .info {
-          font-size: 12px;
           color: $clear-text;
+          font-size: 12px;
         }
 
         > .date {
-          font-size: 16px;
           color: $mint-cream;
+          font-size: 16px;
         }
 
         > .status {
-          font-size: 14px;
           color: $clear-text;
+          font-size: 14px;
         }
       }
 
       > .container-teams {
-        display: flex;
         align-items: center;
+        display: flex;
+        flex: 1;
+        justify-content: center;
 
         > .team {
           color: $mint-cream;
           font-size: 16px;
           margin-right: 10px;
+          max-width: 252px;
+          overflow: hidden;
           text-align: end;
-          width: 252px;
           text-overflow: ellipsis;
+          white-space: nowrap;
+          width: 100%;
 
           &.right {
             margin: 0 0 0 10px;
@@ -75,34 +80,34 @@
         }
 
         > .acronym {
-          font-size: 20px;
           color: $mint-cream;
+          font-size: 20px;
         }
 
         > .input {
-          width: 40px;
-          height: 40px;
-          border: 1px solid $mint-cream;
-          background-color: $black;
-          color: $mint-cream;
-          margin: 10px;
-          display: flex;
-          justify-content: center;
           align-items: center;
-          text-align: center;
+          background-color: $black;
+          border: 1px solid $mint-cream;
+          color: $mint-cream;
+          display: flex;
           font-size: 20px;
+          height: 40px;
+          justify-content: center;
+          margin: 10px;
+          text-align: center;
+          width: 40px;
         }
 
         > .versus {
-          font-size: 18px;
           color: $mint-cream;
+          font-size: 18px;
         }
       }
 
       > .container-status {
+        align-items: center;
         display: flex;
         justify-content: center;
-        align-items: center;
 
         > .status {
           color: $mint-cream;
@@ -121,8 +126,8 @@
           flex-direction: row;
 
           > .info {
-            font-size: 16px;
             color: $mint-cream;
+            font-size: 16px;
             margin-right: 10px;
           }
 
@@ -131,16 +136,14 @@
           }
 
           > .status {
-            font-size: 16px;
             color: $mint-cream;
+            font-size: 16px;
           }
         }
 
         > .container-teams {
-          > .team {
-            font-size: 14px;
-            width: 100px;
-          }
+          justify-content: center;
+          width: 100%;
         }
       }
     }
