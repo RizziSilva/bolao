@@ -5,6 +5,7 @@ import { BolaoCard } from "@components";
 import { useAsyncRequest } from "@hooks";
 import { useAuth } from "@context";
 import { SCORES_KEYS } from "@constants";
+import { MAX_POOL_CODE_CHARACTERS } from "./constants";
 import "./style.scss";
 
 export function Bolao() {
@@ -39,9 +40,14 @@ export function Bolao() {
   }
 
   function handleChange(event) {
-    const { value } = event.target;
+    const { value = "" } = event.target;
+    const hasMaxCharacters = value.length > MAX_POOL_CODE_CHARACTERS;
 
-    setCode(value);
+    if (!hasMaxCharacters) {
+      const upperCaseValue = value.toUpperCase();
+
+      setCode(upperCaseValue);
+    }
   }
 
   function renderBoloes() {
