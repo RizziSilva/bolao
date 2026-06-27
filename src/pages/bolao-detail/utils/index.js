@@ -1,4 +1,4 @@
-export { handleUserGroupGuesses } from "./guesses";
+export { handleUserGroupGuesses, handleInitialGuesses } from "./guesses";
 export {
   groupMatchesByDay,
   formatMatchsDayDate,

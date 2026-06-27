@@ -7,3 +7,11 @@ export function handleUserGroupGuesses(guesses) {
 
   return selectedTeams;
 }
+
+export function handleInitialGuesses(guesses) {
+  return guesses.reduce((guesses, currentGuess) => {
+    guesses[currentGuess.matchId] = currentGuess;
+
+    return guesses;
+  }, {});
+}

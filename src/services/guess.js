@@ -65,5 +65,22 @@ export function guessService() {
     await batch.commit();
   }
 
-  return { saveGroupGuess, getGroupGuesses, saveMatchesGuesses };
+  async function getAllMatchesGuesses(poolId, userId, stage) {
+    const guessesRef = collection(db, "pools", poolId, "guesses");
+    const guessesQuery = query(
+      guessesRef,
+      where("userId", "==", userId),
+      where("stage", "==", stage),
+    );
+    const snap = await getDocs(guessesQuery);
+
+    return snap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  }
+
+  return {
+    saveGroupGuess,
+    getGroupGuesses,
+    saveMatchesGuesses,
+    getAllMatchesGuesses,
+  };
 }

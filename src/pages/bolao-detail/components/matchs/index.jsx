@@ -1,18 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { STAGES, TEAMS } from "@constants";
 import { useAuth } from "@context";
 import { guessService } from "@services";
 import { useAsyncRequest } from "@hooks";
 import { TEAMS_INPUT } from "../../constants";
-import { formatMatchDate, formatMatchsDayDate } from "../../utils";
+import {
+  formatMatchDate,
+  formatMatchsDayDate,
+  handleInitialGuesses,
+} from "../../utils";
 import { ConfirmButton } from "../confirm-button";
 import "./style.scss";
 
 export function Matchs({ matchs = [], selectedStage, poolId }) {
   const [userGuesses, setUserGuesses] = useState({});
   const { user } = useAuth();
-  const { saveMatchesGuesses } = guessService();
+  const { saveMatchesGuesses, getAllMatchesGuesses } = guessService();
   const { asyncRequest } = useAsyncRequest();
+
+  useEffect(() => {
+    // TODO silva.william 25/06/2026: Adicionar feedback para sucesso e erro ao buscar os palpites.
+    async function getUserMatchesGuesses() {
+      try {
+        const data = await asyncRequest(() =>
+          getAllMatchesGuesses(poolId, user.uid, selectedStage),
+        );
+
+        setUserGuesses(handleInitialGuesses(data));
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    getUserMatchesGuesses();
+  }, []);
 
   // TODO silva.william 25/06/2026: Adicionar feedback para sucesso e erro ao salvar os palpites.
   async function handleSaveGuesses() {
