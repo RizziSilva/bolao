@@ -14,7 +14,7 @@ export function AuthProvider({ children }) {
       if (user) {
         await saveUserIfNotExists(user);
         setUser(user);
-      } else setUser(undefined);
+      } else setUser(null);
     }
 
     const unsub = onAuthStateChanged(auth, handleLogin);
