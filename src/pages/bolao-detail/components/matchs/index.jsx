@@ -73,7 +73,8 @@ export function Matchs({ matchs = [], selectedStage, poolId }) {
   }
 
   function getTeamInfo(team) {
-    const foundedTeam = TEAMS.find(({ id }) => id === team);
+    const teamAsNumber = Number(team);
+    const foundedTeam = TEAMS.find(({ id }) => id == teamAsNumber);
 
     return {
       name: foundedTeam?.name || team,
