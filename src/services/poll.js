@@ -14,6 +14,14 @@ import { SCORES_KEYS } from "@constants";
 export function poolService() {
   const { db } = firebaseService();
 
+  async function getPoolById(poolId) {
+    const poolRef = doc(db, "pools", poolId);
+    const poolSnap = await getDoc(poolRef);
+    const pool = poolSnap.data();
+
+    return pool;
+  }
+
   async function getPoolByCode(code) {
     const poolsRef = collection(db, "pools");
     const poolsQuery = query(poolsRef, where("code", "==", code));
@@ -69,5 +77,5 @@ export function poolService() {
     return pools;
   }
 
-  return { joinPool, getUserPools, getPoolByCode };
+  return { joinPool, getUserPools, getPoolByCode, getPoolById };
 }

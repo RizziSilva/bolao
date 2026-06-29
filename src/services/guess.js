@@ -48,7 +48,7 @@ export function guessService() {
 
   async function saveMatchesGuesses(poolId, userId, guesses, stage) {
     const batch = writeBatch(db);
-    console.log("guesses", guesses);
+
     guesses.forEach(({ matchId, homeScore, awayScore }) => {
       const ref = doc(db, "pools", poolId, "guesses", `${userId}_${matchId}`);
       batch.set(ref, {
@@ -77,10 +77,18 @@ export function guessService() {
     return snap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   }
 
+  async function getAllGuessesFromPool(poolId) {
+    const guessesRef = collection(db, "pools", poolId, "guesses");
+    const guessesSnap = await getDocs(guessesRef);
+
+    return guessesSnap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  }
+
   return {
     saveGroupGuess,
     getGroupGuesses,
     saveMatchesGuesses,
     getAllMatchesGuesses,
+    getAllGuessesFromPool,
   };
 }

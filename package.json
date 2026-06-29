@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "seed:knockout": "node --env-file=.env src/migrations/knockout-matches.js"
+    "seed:knockout": "node --env-file=.env src/migrations/knockout-matches.js",
+    "seed:first-round": "node --env-file=.env src/migrations/first-round-update.js"
   },
   "dependencies": {
     "embla-carousel-react": "^8.6.0",

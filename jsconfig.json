@@ -11,7 +11,8 @@
       "@statics": ["./src/statics"],
       "@constants": ["./src/constants"],
       "@layouts": ["./src/layouts"],
-      "@entities": ["./src/entities"]
+      "@entities": ["./src/entities"],
+      "@utils": ["./src/utils"]
     }
   },
   "include": ["./src/**/*"]

@@ -22,6 +22,7 @@ export default defineConfig({
       "@constants": path.resolve(__dirname, "src/constants"),
       "@layouts": path.resolve(__dirname, "src/layouts"),
       "@entities": path.resolve(__dirname, "src/entities"),
+      "@utils": path.resolve(__dirname, "src/utils"),
     },
   },
 });

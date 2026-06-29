@@ -1,4 +1,4 @@
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { firebaseService } from "./firebase";
 
 export function matchesService() {
@@ -12,7 +12,16 @@ export function matchesService() {
     return snap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   }
 
+  async function getAllFinishedMatches() {
+    const matchesSnap = await getDocs(
+      query(collection(db, "matches"), where("finished", "==", true)),
+    );
+
+    return matchesSnap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  }
+
   return {
     getAllMatches,
+    getAllFinishedMatches,
   };
 }

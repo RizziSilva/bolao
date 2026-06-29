@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useAsyncRequest } from "@hooks";
 import { STAGES } from "@constants";
 import { poolService } from "@services";
-import { ConfirmButton, Stages, StagesSelector } from "./components";
+import { Stages, StagesSelector, UpdateButton } from "./components";
 import "./style.scss";
 
 export function BolaoDetail() {
@@ -33,9 +33,12 @@ export function BolaoDetail() {
       <div className="container-content">
         <div className="container-upper">
           <span className="title">{pool.name}</span>
-          <div className="container-game-code">
-            <span className="text">Código</span>
-            <span className="code">{pool.code}</span>
+          <div className="container-actions">
+            <UpdateButton pool={pool} />
+            <div className="container-game-code">
+              <span className="text">Código</span>
+              <span className="code">{pool.code}</span>
+            </div>
           </div>
         </div>
         <StagesSelector

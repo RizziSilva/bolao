@@ -29,24 +29,41 @@
         font-size: 32px;
       }
 
-      > .container-game-code {
-        background-color: $graphite;
-        border: 1px solid $royal-gold;
-        cursor: text;
+      > .container-actions {
         display: flex;
-        flex-direction: column;
-        padding: 10px 25px;
 
-        > .text {
+        > .button {
+          align-items: center;
+          background-color: $graphite;
+          border: 1px solid $royal-gold;
           color: $mint-cream;
+          cursor: pointer;
+          display: flex;
           font-size: 16px;
+          justify-content: center;
+          margin-right: 10px;
+          padding: 0 10px;
         }
 
-        > .code {
-          color: $royal-gold;
-          font-size: 30px;
-          letter-spacing: 5px;
-          text-transform: uppercase;
+        > .container-game-code {
+          background-color: $graphite;
+          border: 1px solid $royal-gold;
+          cursor: text;
+          display: flex;
+          flex-direction: column;
+          padding: 10px 25px;
+
+          > .text {
+            color: $mint-cream;
+            font-size: 16px;
+          }
+
+          > .code {
+            color: $royal-gold;
+            font-size: 30px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+          }
         }
       }
     }
