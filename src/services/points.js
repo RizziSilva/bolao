@@ -1,4 +1,4 @@
-import { doc, writeBatch } from "firebase/firestore";
+import { doc, increment, writeBatch } from "firebase/firestore";
 import { calculatePoolUsersPoints } from "@utils";
 import { matchesService } from "./matches";
 import { guessService } from "./guess";
