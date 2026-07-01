@@ -2,6 +2,8 @@ import { HOURS_IN_MILLISECONDS } from "@constants";
 import { useAuth } from "@context";
 import { useAsyncRequest } from "@hooks";
 import { pointsService } from "@services";
+import { UPDATE_BUTTON_COOLDOWN_HOURS } from "../../constants";
+import "./style.scss";
 
 export function UpdateButton({ pool }) {
   const { user } = useAuth();
@@ -22,7 +24,7 @@ export function UpdateButton({ pool }) {
     const lastCalc = lastCalculatedAt.toDate();
     const diffInHours = (new Date() - lastCalc) / HOURS_IN_MILLISECONDS;
 
-    return Math.max(0, Math.ceil(1 - diffInHours));
+    return Math.max(0, Math.ceil(UPDATE_BUTTON_COOLDOWN_HOURS - diffInHours));
   }
 
   function renderContent() {
@@ -30,10 +32,10 @@ export function UpdateButton({ pool }) {
     const isCreator = createdBy === user.email;
     const isInCooldown = getIsInCooldown();
 
-    if (!isCreator) return null;
+    if (!isCreator || isInCooldown) return null;
 
     return (
-      <button onClick={handleClick} className="button">
+      <button onClick={handleClick} id="update-button-component">
         Atualizar pontuação
       </button>
     );

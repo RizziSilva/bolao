@@ -32,19 +32,6 @@
       > .container-actions {
         display: flex;
 
-        > .button {
-          align-items: center;
-          background-color: $graphite;
-          border: 1px solid $royal-gold;
-          color: $mint-cream;
-          cursor: pointer;
-          display: flex;
-          font-size: 16px;
-          justify-content: center;
-          margin-right: 10px;
-          padding: 0 10px;
-        }
-
         > .container-game-code {
           background-color: $graphite;
           border: 1px solid $royal-gold;
@@ -72,6 +59,14 @@
   @include mobile {
     > .container-content {
       align-items: center;
+
+      > .container-upper {
+        flex-direction: column;
+
+        > .title {
+          margin-bottom: 15px;
+        }
+      }
     }
   }
 }

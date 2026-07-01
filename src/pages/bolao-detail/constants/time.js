@@ -1,0 +1,1 @@
+export const UPDATE_BUTTON_COOLDOWN_HOURS = 1;

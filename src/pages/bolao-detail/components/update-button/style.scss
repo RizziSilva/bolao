@@ -1,0 +1,14 @@
+@use "@styles" as *;
+
+#update-button-component {
+  align-items: center;
+  background-color: $graphite;
+  border: 1px solid $royal-gold;
+  color: $mint-cream;
+  cursor: pointer;
+  display: flex;
+  font-size: 16px;
+  justify-content: center;
+  margin-right: 10px;
+  padding: 0 10px;
+}
