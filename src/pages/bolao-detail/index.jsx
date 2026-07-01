@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 import { useAsyncRequest } from "@hooks";
 import { STAGES } from "@constants";
 import { poolService } from "@services";
@@ -14,7 +15,6 @@ export function BolaoDetail() {
   const { asyncRequest } = useAsyncRequest();
 
   useEffect(() => {
-    // TODO silva.william 16/06/2026: Lidar com o erro e sucesso ao buscar o bolão.
     async function getPoolInfo() {
       try {
         const data = await asyncRequest(() => getPoolByCode(code));
@@ -22,6 +22,7 @@ export function BolaoDetail() {
         setPool(data);
       } catch (error) {
         console.error(error);
+        toast.error("Erro ao buscar as informações do bolão.");
       }
     }
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 import { poolService } from "@services";
 import { BolaoCard } from "@components";
 import { useAsyncRequest } from "@hooks";
@@ -19,23 +20,24 @@ export function Bolao() {
     getPools();
   }, []);
 
-  // TODO silva.william 16/06/2026: Lidar com o erro e sucesso ao buscar os bolões.
   async function getPools() {
     try {
       const data = await asyncRequest(() => getUserPools(user.uid));
       setPools(data);
     } catch (error) {
       console.error(error);
+      toast.error("Erro ao buscar informações sobre os bolões.");
     }
   }
 
-  // TODO silva.william 16/06/2026: Lidar com o erro e sucesso ao entrar no bolão.
   async function handleClick() {
     try {
       await asyncRequest(() => joinPool(code, user.uid));
       await getPools();
+      toast.error("Sucesso ao entrar no bolão.");
     } catch (error) {
       console.error(error);
+      toast.error("Erro ao entrar na bolão.");
     }
   }
 

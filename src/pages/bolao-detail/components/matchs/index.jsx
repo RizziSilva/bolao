@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { STAGES, TEAMS } from "@constants";
 import { useAuth } from "@context";
 import { guessService } from "@services";
@@ -19,7 +20,6 @@ export function Matchs({ matchs = [], selectedStage, poolId }) {
   const { asyncRequest } = useAsyncRequest();
 
   useEffect(() => {
-    // TODO silva.william 25/06/2026: Adicionar feedback para sucesso e erro ao buscar os palpites.
     async function getUserMatchesGuesses() {
       try {
         const data = await asyncRequest(() =>
@@ -29,21 +29,23 @@ export function Matchs({ matchs = [], selectedStage, poolId }) {
         setUserGuesses(handleInitialGuesses(data));
       } catch (error) {
         console.error(error);
+        toast.error("Erro ao buscar os palpites do usuário.");
       }
     }
 
     getUserMatchesGuesses();
   }, []);
 
-  // TODO silva.william 25/06/2026: Adicionar feedback para sucesso e erro ao salvar os palpites.
   async function handleSaveGuesses() {
     try {
       const guessesArray = Object.values(userGuesses);
       await asyncRequest(() =>
         saveMatchesGuesses(poolId, user.uid, guessesArray, selectedStage),
       );
+      toast.success("Sucesso ao salvar os palpites.");
     } catch (error) {
       console.error(error);
+      toast.success("Erro ao salvar os palpites.");
     }
   }
 

@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 import { useAuth } from "@context";
 import { BolaoCard } from "@components";
 import { SCORES_KEYS } from "@constants";
@@ -6,7 +8,6 @@ import { useAsyncRequest } from "@hooks";
 import { poolService } from "@services";
 import { ScoreCards } from "./components";
 import "./style.scss";
-import { Link } from "react-router-dom";
 
 export function Dashboard() {
   const [pools, setPools] = useState([]);
@@ -14,7 +15,6 @@ export function Dashboard() {
   const { asyncRequest } = useAsyncRequest();
   const { getUserPools } = poolService();
 
-  // TODO silva.william 16/06/2026: Lidar com o erro e sucesso ao buscar os bolões.
   useEffect(() => {
     async function getPools() {
       try {
@@ -22,6 +22,7 @@ export function Dashboard() {
         setPools(data);
       } catch (error) {
         console.error(error);
+        toast.error("Erro ao buscar informações sobre os bolões.");
       }
     }
 

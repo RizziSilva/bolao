@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { TEAMS } from "@constants";
 import { useAuth } from "@context";
 import { guessService } from "@services";
@@ -14,7 +15,6 @@ export function GroupStageCard({ poolId }) {
   const { getGroupGuesses: getGroupGuess, saveGroupGuess } = guessService();
 
   useEffect(() => {
-    // TODO silva.william 22/06/2026: Adicionar feedback para erro na busca dos palpites.
     async function getUserGroupGuesses() {
       try {
         const data = await asyncRequest(() => getGroupGuess(poolId, user.uid));
@@ -23,13 +23,13 @@ export function GroupStageCard({ poolId }) {
         setSelectedTeams(initialGuesses);
       } catch (error) {
         console.error(error);
+        toast.error("Erro ao buscar os palpites do usuário.");
       }
     }
 
     if (poolId) getUserGroupGuesses();
   }, [poolId]);
 
-  // TODO silva.william 22/06/2026: Adicionar feedback para erro e sucesso no cadastro dos palpites.
   async function handleSaveGuesses() {
     try {
       const guesses = [];
@@ -42,8 +42,10 @@ export function GroupStageCard({ poolId }) {
       });
 
       await asyncRequest(() => saveGroupGuess(poolId, user.uid, guesses));
+      toast.success("Palpites cadastrados com sucesso.");
     } catch (error) {
       console.error(error);
+      toast.error("Erro ao cadastrar os palpites.");
     }
   }
 

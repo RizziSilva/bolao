@@ -5,6 +5,7 @@ import { useLoading } from "@context";
 import { ProtectedLayout } from "@layouts";
 import { Bolao, BolaoDetail, Dashboard, Login } from "@pages";
 import "./style.scss";
+import { Toaster } from "react-hot-toast";
 
 export default function App() {
   const { isLoading } = useLoading();
@@ -17,6 +18,7 @@ export default function App() {
 
   return (
     <>
+      <Toaster position="top-right" />
       {renderLoader()}
       <BrowserRouter>
         <Routes>
