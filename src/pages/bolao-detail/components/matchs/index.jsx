@@ -61,7 +61,7 @@ export function Matchs({ matchs = [], selectedStage, poolId }) {
   function getInputValue(matchId, name) {
     const guess = userGuesses[matchId];
 
-    if (guess) return guess[name] || "";
+    if (guess) return guess[name] ?? "";
 
     return "";
   }
