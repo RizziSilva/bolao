@@ -14,3 +14,4 @@ export { STAGES_ARRAY, STAGES } from "./stages";
 export { TEAMS } from "./teams";
 export { CORRECT_SCORE, CORRECT_WINNER } from "./points";
 export { HOURS_IN_MILLISECONDS } from "./time";
+export { GROUP_QUALIFIERS } from "./group-stage-migration";

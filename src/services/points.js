@@ -3,20 +3,25 @@ import { calculatePoolUsersPoints } from "@utils";
 import { matchesService } from "./matches";
 import { guessService } from "./guess";
 import { firebaseService } from "./firebase";
+import { groupService } from "./group";
 
 export function pointsService() {
   const { getAllFinishedMatches } = matchesService();
   const { getAllGuessesFromPool } = guessService();
+  const { getAllGroupStageQualifiers } = groupService();
   const { db } = firebaseService();
 
   async function calculatePoolPoints(poolId) {
-    const allMatches = await getAllFinishedMatches();
-    const matchesInfo = {};
-    allMatches.forEach((match) => {
-      matchesInfo[match.id] = match;
-    });
-    const poolGuesses = await getAllGuessesFromPool(poolId);
-    const userPoints = calculatePoolUsersPoints(poolGuesses, matchesInfo);
+    const [allMatches, poolGuesses, groupStageQualifiers] = await Promise.all([
+      getAllFinishedMatches(),
+      getAllGuessesFromPool(poolId),
+      getAllGroupStageQualifiers(),
+    ]);
+    const userPoints = calculatePoolUsersPoints(
+      poolGuesses,
+      allMatches,
+      groupStageQualifiers,
+    );
     const batch = writeBatch(db);
 
     Object.entries(userPoints).forEach(([userId, points]) => {

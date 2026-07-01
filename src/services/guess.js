@@ -7,6 +7,7 @@ import {
   writeBatch,
 } from "firebase/firestore";
 import { firebaseService } from "./firebase";
+import { STAGES } from "@constants";
 
 export function guessService() {
   const { db } = firebaseService();
@@ -25,7 +26,7 @@ export function guessService() {
       guessesBatch.set(guessesRef, {
         userId,
         groupId,
-        stage: "group",
+        stage: STAGES.GROUP.id,
         qualifiers,
         createdAt: new Date(),
       });
@@ -39,7 +40,7 @@ export function guessService() {
     const guessesQuery = query(
       guessesRef,
       where("userId", "==", userId),
-      where("stage", "==", "group"),
+      where("stage", "==", STAGES.GROUP.id),
     );
     const snap = await getDocs(guessesQuery);
 

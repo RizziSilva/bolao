@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "seed:knockout": "node --env-file=.env src/migrations/knockout-matches.js",
-    "seed:first-round": "node --env-file=.env src/migrations/first-round-update.js"
+    "seed:first-round": "node --env-file=.env src/migrations/first-round-update.js",
+    "seed:group-stage-qualifiers": "node --env-file=.env src/migrations/group-qualifiers.js"
   },
   "dependencies": {
     "embla-carousel-react": "^8.6.0",
