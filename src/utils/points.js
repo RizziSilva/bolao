@@ -55,9 +55,7 @@ function getPoints(guess, groupQualifiers, match) {
 
 function calculateMatchPoint(guess, match) {
   const correctScore = isCorrectGuess(guess, match);
-  const correctWinner =
-    Math.sign(guess.homeScore - guess.awayScore) ===
-    Math.sign(match.homeScore - match.awayScore);
+  const correctWinner = isCorrectWinner(guess, match);
 
   if (correctScore) return CORRECT_SCORE;
   if (correctWinner) return CORRECT_WINNER;
@@ -80,9 +78,16 @@ function calculateGroupStagePoint(qualifiers, guess) {
   return 0;
 }
 
-function isCorrectGuess(guess, match) {
+export function isCorrectGuess(guess, match) {
   const correctHomeScore = guess.homeScore === match.homeScore;
   const correctAwayScore = guess.awayScore === match.awayScore;
 
   return correctHomeScore && correctAwayScore;
+}
+
+export function isCorrectWinner(guess, match) {
+  return (
+    Math.sign(guess.homeScore - guess.awayScore) ===
+    Math.sign(match.homeScore - match.awayScore)
+  );
 }

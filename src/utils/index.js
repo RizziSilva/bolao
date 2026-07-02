@@ -1,1 +1,5 @@
-export { calculatePoolUsersPoints } from "./points";
+export {
+  calculatePoolUsersPoints,
+  isCorrectGuess,
+  isCorrectWinner,
+} from "./points";

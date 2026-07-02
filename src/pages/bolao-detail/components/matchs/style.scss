@@ -1,5 +1,36 @@
 @use "@styles" as *;
 
+@mixin card-status($color) {
+  border-color: $color;
+
+  > .container-status {
+    > .status {
+      color: $color;
+    }
+  }
+
+  > .container-info {
+    > .info,
+    > .date,
+    > .status {
+      color: $color;
+    }
+  }
+
+  > .container-teams {
+    > .team,
+    > .acronym,
+    > .input,
+    > .versus {
+      color: $color;
+    }
+
+    > .input {
+      border-color: $color;
+    }
+  }
+}
+
 #container-matchs-component {
   display: flex;
   flex-direction: column;
@@ -35,6 +66,22 @@
       justify-content: space-between;
       margin-bottom: 10px;
       padding: 10px;
+
+      &.perfect {
+        @include card-status($royal-gold);
+      }
+
+      &.correct {
+        @include card-status($dark-green);
+      }
+
+      &.wrong {
+        @include card-status($muted-red);
+      }
+
+      &.without {
+        opacity: 0.5;
+      }
 
       > .container-info {
         display: flex;
@@ -107,7 +154,8 @@
       > .container-status {
         align-items: center;
         display: flex;
-        justify-content: center;
+        justify-content: flex-end;
+        min-width: 110px;
 
         > .status {
           color: $mint-cream;

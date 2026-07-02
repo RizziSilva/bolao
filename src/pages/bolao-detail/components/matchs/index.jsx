@@ -4,7 +4,8 @@ import { STAGES, TEAMS } from "@constants";
 import { useAuth } from "@context";
 import { guessService } from "@services";
 import { useAsyncRequest } from "@hooks";
-import { TEAMS_INPUT } from "../../constants";
+import { isCorrectGuess, isCorrectWinner } from "@utils";
+import { MATCH_STATUS_INFO, TEAMS_INPUT } from "../../constants";
 import {
   formatMatchDate,
   formatMatchsDayDate,
@@ -68,6 +69,27 @@ export function Matchs({ matchs = [], selectedStage, poolId }) {
     return "";
   }
 
+  function getMatchStatusInfo(match) {
+    const guess = userGuesses[match.id];
+    const { finished } = match;
+
+    if (finished && !guess) return MATCH_STATUS_INFO.WITHOUT_GUESS;
+    if (!finished) return MATCH_STATUS_INFO.WAITING;
+
+    const isPerfectGuess = isCorrectGuess(guess, match);
+    const isCorrectWinnerGuess = isCorrectWinner(guess, match);
+
+    if (isPerfectGuess) return MATCH_STATUS_INFO.PERFECT;
+    if (isCorrectWinnerGuess) return MATCH_STATUS_INFO.CORRECT;
+
+    return MATCH_STATUS_INFO.WRONG;
+  }
+
+  function getTeamById(team) {
+    const teamAsNumber = Number(team);
+    return TEAMS.find(({ id }) => id == teamAsNumber);
+  }
+
   function getStageLabel() {
     const stage = Object.values(STAGES).find(({ id }) => id === selectedStage);
 
@@ -75,13 +97,22 @@ export function Matchs({ matchs = [], selectedStage, poolId }) {
   }
 
   function getTeamInfo(team) {
-    const teamAsNumber = Number(team);
-    const foundedTeam = TEAMS.find(({ id }) => id == teamAsNumber);
+    const foundedTeam = getTeamById(team);
 
     return {
       name: foundedTeam?.name || team,
       acronym: foundedTeam?.acronym || "",
     };
+  }
+
+  function renderMatchTeamsStatus(awayTeam, homeTeam) {
+    const homeTeamInfo = getTeamById(homeTeam);
+    const awayTeamInfo = getTeamById(awayTeam);
+    const hasTeamInfos = !!homeTeamInfo && !!awayTeamInfo;
+
+    if (hasTeamInfos) return null;
+
+    return <span className="status">A definir</span>;
   }
 
   function renderAcronym(acronym) {
@@ -90,7 +121,7 @@ export function Matchs({ matchs = [], selectedStage, poolId }) {
     return <span className="acronym">{acronym}</span>;
   }
 
-  function renderInput(name, matchId) {
+  function renderInput(name, matchId, finished) {
     const inputValue = getInputValue(matchId, name);
 
     return (
@@ -99,11 +130,12 @@ export function Matchs({ matchs = [], selectedStage, poolId }) {
         name={name}
         value={inputValue}
         onChange={(e) => handleInputChange(e, matchId)}
+        disabled={finished}
       />
     );
   }
 
-  function renderTeams(awayTeam, homeTeam, awayScore, homeScore, id) {
+  function renderTeams(awayTeam, homeTeam, id, finished) {
     const homeTeamInfo = getTeamInfo(homeTeam);
     const awayTeamInfo = getTeamInfo(awayTeam);
 
@@ -111,9 +143,9 @@ export function Matchs({ matchs = [], selectedStage, poolId }) {
       <>
         <span className="team">{homeTeamInfo.name}</span>
         {renderAcronym(homeTeamInfo.acronym)}
-        {renderInput(TEAMS_INPUT.HOME_TEAM, id)}
+        {renderInput(TEAMS_INPUT.HOME_TEAM, id, finished)}
         <span className="versus">x</span>
-        {renderInput(TEAMS_INPUT.AWAY_TEAM, id)}
+        {renderInput(TEAMS_INPUT.AWAY_TEAM, id, finished)}
         {renderAcronym(awayTeamInfo.acronym)}
         <span className="team right"> {awayTeamInfo.name}</span>
       </>
@@ -121,34 +153,27 @@ export function Matchs({ matchs = [], selectedStage, poolId }) {
   }
 
   function renderMatchsCard(dayMatchs) {
-    return dayMatchs.map(
-      ({
-        awayTeam,
-        homeTeam,
-        homeScore,
-        awayScore,
-        matchDate,
-        finished,
-        id,
-      }) => {
-        const formattedDate = formatMatchDate(matchDate);
-        return (
-          <div key={id} className="container-match">
-            <div className="container-info">
-              <span className="info">{getStageLabel()}</span>
-              <span className="date">{formattedDate}</span>
-              <span className="status">A definir</span>
-            </div>
-            <div className="container-teams">
-              {renderTeams(awayTeam, homeTeam, awayScore, homeScore, id)}
-            </div>
-            <div className="container-status">
-              <span className="status">Aguardando</span>
-            </div>
+    return dayMatchs.map((match) => {
+      const { awayTeam, homeTeam, matchDate, id, finished } = match;
+      const formattedDate = formatMatchDate(matchDate);
+      const matchStatusInfo = getMatchStatusInfo(match);
+
+      return (
+        <div key={id} className={`container-match ${matchStatusInfo.class}`}>
+          <div className="container-info">
+            <span className="info">{getStageLabel()}</span>
+            <span className="date">{formattedDate}</span>
+            {renderMatchTeamsStatus(awayTeam, homeTeam)}
           </div>
-        );
-      },
-    );
+          <div className="container-teams">
+            {renderTeams(awayTeam, homeTeam, id, finished)}
+          </div>
+          <div className="container-status">
+            <span className="status">{matchStatusInfo.text}</span>
+          </div>
+        </div>
+      );
+    });
   }
   function renderDayMatchs(matchDays) {
     return matchDays.map(({ day, matches }, index) => {
