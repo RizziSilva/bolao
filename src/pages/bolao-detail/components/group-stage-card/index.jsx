@@ -2,19 +2,38 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { TEAMS } from "@constants";
 import { useAuth } from "@context";
-import { guessService } from "@services";
+import { groupService, guessService } from "@services";
 import { useAsyncRequest } from "@hooks";
 import { handleUserGroupGuesses } from "../../utils";
 import { ConfirmButton } from "../confirm-button";
+import {
+  TODAY,
+  GROUP_STAGE_STARTING_DATE,
+  GROUPS_STATUS_INFO,
+} from "../../constants";
 import "./style.scss";
 
 export function GroupStageCard({ poolId }) {
   const [selectedTeams, setSelectedTeams] = useState({});
+  const [groupQualifiers, setGroupQualifiers] = useState([]);
   const { user } = useAuth();
   const { asyncRequest } = useAsyncRequest();
   const { getGroupGuesses: getGroupGuess, saveGroupGuess } = guessService();
+  const { getAllGroupStageQualifiers } = groupService();
+  const isSelectionDisabled = TODAY >= GROUP_STAGE_STARTING_DATE;
 
   useEffect(() => {
+    async function getGroupQualifiers() {
+      try {
+        const data = await asyncRequest(() => getAllGroupStageQualifiers());
+
+        setGroupQualifiers(data);
+      } catch (error) {
+        console.error(error);
+        toast.error("Erro ao buscar os resultados da fase de grupos.");
+      }
+    }
+
     async function getUserGroupGuesses() {
       try {
         const data = await asyncRequest(() => getGroupGuess(poolId, user.uid));
@@ -28,6 +47,7 @@ export function GroupStageCard({ poolId }) {
     }
 
     if (poolId) getUserGroupGuesses();
+    getGroupQualifiers();
   }, [poolId]);
 
   async function handleSaveGuesses() {
@@ -70,6 +90,17 @@ export function GroupStageCard({ poolId }) {
     });
   }
 
+  function getGuessStatus(groupResults, teamId, isSelected) {
+    if (!groupResults) return "";
+
+    const isRunnerUp = groupResults.qualifiers.includes(teamId);
+
+    if (!isSelected) {
+      return isRunnerUp ? GROUPS_STATUS_INFO.UNSELECTED_CORRECT : "";
+    } else
+      return isRunnerUp ? GROUPS_STATUS_INFO.CORRECT : GROUPS_STATUS_INFO.WRONG;
+  }
+
   function getTeamsAsGroups() {
     return TEAMS.reduce((groups, team) => {
       if (!groups[team.group]) groups[team.group] = [];
@@ -79,16 +110,18 @@ export function GroupStageCard({ poolId }) {
     }, {});
   }
 
-  function renderGroupTeams(teams, group) {
+  function renderGroupTeams(teams, group, groupResults) {
     return teams.map(({ name, acronym, id }) => {
       const isSelected = selectedTeams[group]?.includes(id);
+      const guessStatus = getGuessStatus(groupResults, id, isSelected);
 
       return (
-        <div key={id} className="container-team">
+        <div key={id} className={`container-team ${guessStatus}`}>
           <span className="name">
             {name} - <span className="acronym">{acronym}</span>
           </span>
           <button
+            disabled={isSelectionDisabled}
             className={`button ${isSelected ? "selected" : ""}`}
             onClick={() => handleSelectedTeam(group, id)}
           />
@@ -100,17 +133,24 @@ export function GroupStageCard({ poolId }) {
   function renderGroupCards() {
     const groupsInfo = getTeamsAsGroups();
 
-    return Object.entries(groupsInfo).map(([group, teams]) => (
-      <div key={group} className="container-group">
-        <span className="title">Grupo {group}</span>
-        {renderGroupTeams(teams, group)}
-      </div>
-    ));
+    return Object.entries(groupsInfo).map(([group, teams]) => {
+      const groupResults = groupQualifiers.find(({ id }) => id === group);
+
+      return (
+        <div key={group} className="container-group">
+          <span className="title">Grupo {group}</span>
+          {renderGroupTeams(teams, group, groupResults)}
+        </div>
+      );
+    });
   }
 
   return (
     <>
-      <ConfirmButton handleConfirmClick={handleSaveGuesses} />
+      <ConfirmButton
+        disabled={isSelectionDisabled}
+        handleConfirmClick={handleSaveGuesses}
+      />
       <div id="container-group-stage-card-component">{renderGroupCards()}</div>
     </>
   );

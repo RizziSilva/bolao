@@ -22,6 +22,11 @@
     height: 50px;
     max-width: 600px;
     width: 100%;
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.4;
+    }
   }
 
   @include mobile {

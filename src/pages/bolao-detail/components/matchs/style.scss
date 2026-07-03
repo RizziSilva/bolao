@@ -129,6 +129,7 @@
         > .acronym {
           color: $mint-cream;
           font-size: 20px;
+          width: 45px;
         }
 
         > .input {
@@ -192,6 +193,10 @@
         > .container-teams {
           justify-content: center;
           width: 100%;
+        }
+
+        > .container-status {
+          justify-content: center;
         }
       }
     }

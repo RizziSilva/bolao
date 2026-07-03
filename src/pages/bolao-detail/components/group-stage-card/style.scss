@@ -34,6 +34,24 @@
         margin-bottom: 0;
       }
 
+      &.wrong {
+        > .name {
+          color: $muted-red;
+        }
+      }
+
+      &.correct {
+        > .name {
+          color: $dark-green;
+        }
+      }
+
+      &.unselected-correct {
+        > .name {
+          color: $steel-blue;
+        }
+      }
+
       > .name {
         color: $mint-cream;
         font-size: 16px;
@@ -50,6 +68,10 @@
         cursor: pointer;
         height: 25px;
         width: 25px;
+
+        &:disabled {
+          cursor: not-allowed;
+        }
 
         &.selected {
           background-color: $light-green;

@@ -20,3 +20,9 @@ export const MATCH_STATUS_INFO = {
     text: "Sem palpite",
   },
 };
+
+export const GROUPS_STATUS_INFO = {
+  CORRECT: "correct",
+  WRONG: "wrong",
+  UNSELECTED_CORRECT: "unselected-correct",
+};
