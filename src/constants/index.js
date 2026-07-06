@@ -15,3 +15,9 @@ export { TEAMS } from "./teams";
 export { CORRECT_SCORE, CORRECT_WINNER } from "./points";
 export { HOURS_IN_MILLISECONDS } from "./time";
 export { GROUP_QUALIFIERS } from "./group-stage-migration";
+export {
+  FIRST_ROUND_FINAL_UPDATE,
+  FIRST_ROUND_UPDATE,
+  KNOCKOUT_MATCHES,
+} from "./knockout-migration";
+export { EIGHT_FINALS_UPDATE } from "./eight_finals_migration";

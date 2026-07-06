@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "seed:knockout": "node --env-file=.env src/migrations/knockout-matches.js",
-    "seed:first-round": "node --env-file=.env src/migrations/first-round-update.js",
+    "seed:rounds-update": "node --env-file=.env src/migrations/rounds-update.js",
     "seed:group-stage-qualifiers": "node --env-file=.env src/migrations/group-qualifiers.js"
   },
   "dependencies": {
