@@ -121,8 +121,9 @@ export function Matchs({ matchs = [], selectedStage, poolId }) {
     return <span className="acronym">{acronym}</span>;
   }
 
-  function renderInput(name, matchId, finished) {
+  function renderInput(name, matchId, matchDate) {
     const inputValue = getInputValue(matchId, name);
+    const hasGameStarted = new Date() > new Date(matchDate);
 
     return (
       <input
@@ -130,12 +131,12 @@ export function Matchs({ matchs = [], selectedStage, poolId }) {
         name={name}
         value={inputValue}
         onChange={(e) => handleInputChange(e, matchId)}
-        disabled={finished}
+        disabled={hasGameStarted}
       />
     );
   }
 
-  function renderTeams(awayTeam, homeTeam, id, finished) {
+  function renderTeams(awayTeam, homeTeam, id, finished, matchDate) {
     const homeTeamInfo = getTeamInfo(homeTeam);
     const awayTeamInfo = getTeamInfo(awayTeam);
 
@@ -143,9 +144,9 @@ export function Matchs({ matchs = [], selectedStage, poolId }) {
       <>
         <span className="team">{homeTeamInfo.name}</span>
         {renderAcronym(homeTeamInfo.acronym)}
-        {renderInput(TEAMS_INPUT.HOME_TEAM, id, finished)}
+        {renderInput(TEAMS_INPUT.HOME_TEAM, id, matchDate)}
         <span className="versus">x</span>
-        {renderInput(TEAMS_INPUT.AWAY_TEAM, id, finished)}
+        {renderInput(TEAMS_INPUT.AWAY_TEAM, id, matchDate)}
         {renderAcronym(awayTeamInfo.acronym)}
         <span className="team right"> {awayTeamInfo.name}</span>
       </>
@@ -166,7 +167,7 @@ export function Matchs({ matchs = [], selectedStage, poolId }) {
             {renderMatchTeamsStatus(awayTeam, homeTeam)}
           </div>
           <div className="container-teams">
-            {renderTeams(awayTeam, homeTeam, id, finished)}
+            {renderTeams(awayTeam, homeTeam, id, finished, matchDate)}
           </div>
           <div className="container-status">
             <span className="status">{matchStatusInfo.text}</span>
