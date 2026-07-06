@@ -1,4 +1,4 @@
-import { doc, increment, writeBatch } from "firebase/firestore";
+import { doc, writeBatch } from "firebase/firestore";
 import { calculatePoolUsersPoints } from "@utils";
 import { matchesService } from "./matches";
 import { guessService } from "./guess";
@@ -28,8 +28,8 @@ export function pointsService() {
       const memberRef = doc(db, "pools", poolId, "members", userId);
 
       batch.update(memberRef, {
-        totalPoints: increment(points.totalPoints),
-        perfectScores: increment(points.perfectScores),
+        totalPoints: points.totalPoints,
+        perfectScores: points.perfectScores,
       });
     });
 
