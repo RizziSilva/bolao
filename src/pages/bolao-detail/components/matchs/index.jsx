@@ -136,19 +136,27 @@ export function Matchs({ matchs = [], selectedStage, poolId }) {
     );
   }
 
-  function renderTeams(awayTeam, homeTeam, id, finished, matchDate) {
+  function renderInfo(teamInfo, isAway) {
+    return (
+      <div className={`container-team-info ${isAway ? "right" : ""}`}>
+        <span className="team">{teamInfo.name}</span>
+        {renderAcronym(teamInfo.acronym)}
+        <button className="button">Vencedor</button>
+      </div>
+    );
+  }
+
+  function renderTeams(awayTeam, homeTeam, id, matchDate) {
     const homeTeamInfo = getTeamInfo(homeTeam);
     const awayTeamInfo = getTeamInfo(awayTeam);
 
     return (
       <>
-        <span className="team">{homeTeamInfo.name}</span>
-        {renderAcronym(homeTeamInfo.acronym)}
+        {renderInfo(homeTeamInfo)}
         {renderInput(TEAMS_INPUT.HOME_TEAM, id, matchDate)}
         <span className="versus">x</span>
         {renderInput(TEAMS_INPUT.AWAY_TEAM, id, matchDate)}
-        {renderAcronym(awayTeamInfo.acronym)}
-        <span className="team right"> {awayTeamInfo.name}</span>
+        {renderInfo(awayTeamInfo, true)}
       </>
     );
   }
@@ -167,7 +175,7 @@ export function Matchs({ matchs = [], selectedStage, poolId }) {
             {renderMatchTeamsStatus(awayTeam, homeTeam)}
           </div>
           <div className="container-teams">
-            {renderTeams(awayTeam, homeTeam, id, finished, matchDate)}
+            {renderTeams(awayTeam, homeTeam, id, matchDate)}
           </div>
           <div className="container-status">
             <span className="status">{matchStatusInfo.text}</span>

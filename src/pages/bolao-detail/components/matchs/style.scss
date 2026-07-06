@@ -18,15 +18,23 @@
   }
 
   > .container-teams {
-    > .team,
-    > .acronym,
-    > .input,
-    > .versus {
+    > .container-team-info {
+      > .team,
+      > .acronym {
+        color: $color;
+      }
+    }
+
+    > .input {
       color: $color;
     }
 
     > .input {
       border-color: $color;
+    }
+
+    > .versus {
+      color: $color;
     }
   }
 }
@@ -109,27 +117,53 @@
         flex: 1;
         justify-content: center;
 
-        > .team {
-          color: $mint-cream;
-          font-size: 16px;
-          margin-right: 10px;
-          max-width: 252px;
-          overflow: hidden;
-          text-align: end;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          width: 100%;
+        > .container-team-info {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          position: relative;
+          width: 50%;
 
           &.right {
-            margin: 0 0 0 10px;
-            text-align: start;
-          }
-        }
+            justify-content: flex-start;
+            margin-left: 10px;
 
-        > .acronym {
-          color: $mint-cream;
-          font-size: 20px;
-          width: 45px;
+            > .button {
+              left: 0;
+              right: unset;
+            }
+          }
+
+          > .team {
+            color: $mint-cream;
+            font-size: 16px;
+            margin-right: 10px;
+            max-width: 90px;
+            overflow: hidden;
+            text-align: end;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+
+          > .acronym {
+            color: $mint-cream;
+            font-size: 20px;
+            width: 45px;
+          }
+
+          > .button {
+            position: absolute;
+            bottom: -20px;
+            background-color: transparent;
+            border-radius: 10px;
+            border: none;
+            color: $mint-cream;
+            cursor: pointer;
+            padding: 0;
+            right: 0;
+            border: 1px solid $mint-cream;
+            padding: 1px 10px;
+          }
         }
 
         > .input {
@@ -197,6 +231,20 @@
 
         > .container-status {
           justify-content: center;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 500px) {
+    > .container-day-matchs {
+      > .container-match {
+        > .container-teams {
+          > .container-team-info {
+            > .team {
+              display: none;
+            }
+          }
         }
       }
     }
