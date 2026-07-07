@@ -50,7 +50,7 @@ export function guessService() {
   async function saveMatchesGuesses(poolId, userId, guesses, stage) {
     const batch = writeBatch(db);
 
-    guesses.forEach(({ matchId, homeScore, awayScore }) => {
+    guesses.forEach(({ matchId, homeScore, awayScore, penaltyWinner }) => {
       const ref = doc(db, "pools", poolId, "guesses", `${userId}_${matchId}`);
       batch.set(ref, {
         userId,
@@ -60,6 +60,7 @@ export function guessService() {
         awayScore: Number(awayScore),
         points: 0,
         createdAt: new Date(),
+        penaltyWinner,
       });
     });
 

@@ -11,6 +11,7 @@
   padding: 20px;
   position: fixed;
   width: 100%;
+  z-index: 3;
 
   > .button {
     background-color: $dark-green;

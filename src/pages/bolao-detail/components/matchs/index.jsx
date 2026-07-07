@@ -5,13 +5,14 @@ import { useAuth } from "@context";
 import { guessService } from "@services";
 import { useAsyncRequest } from "@hooks";
 import { isCorrectGuess, isCorrectWinner } from "@utils";
-import { MATCH_STATUS_INFO, TEAMS_INPUT } from "../../constants";
+import { MATCH_STATUS_INFO } from "../../constants";
 import {
   formatMatchDate,
   formatMatchsDayDate,
   handleInitialGuesses,
 } from "../../utils";
 import { ConfirmButton } from "../confirm-button";
+import { Teams } from "../match-team";
 import "./style.scss";
 
 export function Matchs({ matchs = [], selectedStage, poolId }) {
@@ -35,7 +36,7 @@ export function Matchs({ matchs = [], selectedStage, poolId }) {
     }
 
     getUserMatchesGuesses();
-  }, []);
+  }, [selectedStage]);
 
   async function handleSaveGuesses() {
     try {
@@ -48,25 +49,6 @@ export function Matchs({ matchs = [], selectedStage, poolId }) {
       console.error(error);
       toast.success("Erro ao salvar os palpites.");
     }
-  }
-
-  function handleInputChange(event, matchId) {
-    const { name, value } = event.target;
-
-    setUserGuesses((current) => {
-      const editing = current[matchId] || {};
-      const newGuess = { ...editing, matchId, [name]: value };
-
-      return { ...current, [matchId]: { ...newGuess } };
-    });
-  }
-
-  function getInputValue(matchId, name) {
-    const guess = userGuesses[matchId];
-
-    if (guess) return guess[name] ?? "";
-
-    return "";
   }
 
   function getMatchStatusInfo(match) {
@@ -96,15 +78,6 @@ export function Matchs({ matchs = [], selectedStage, poolId }) {
     return stage?.label || "";
   }
 
-  function getTeamInfo(team) {
-    const foundedTeam = getTeamById(team);
-
-    return {
-      name: foundedTeam?.name || team,
-      acronym: foundedTeam?.acronym || "",
-    };
-  }
-
   function renderMatchTeamsStatus(awayTeam, homeTeam) {
     const homeTeamInfo = getTeamById(homeTeam);
     const awayTeamInfo = getTeamById(awayTeam);
@@ -115,55 +88,9 @@ export function Matchs({ matchs = [], selectedStage, poolId }) {
     return <span className="status">A definir</span>;
   }
 
-  function renderAcronym(acronym) {
-    if (!acronym) return null;
-
-    return <span className="acronym">{acronym}</span>;
-  }
-
-  function renderInput(name, matchId, matchDate) {
-    const inputValue = getInputValue(matchId, name);
-    const hasGameStarted = new Date() > new Date(matchDate);
-
-    return (
-      <input
-        className="input"
-        name={name}
-        value={inputValue}
-        onChange={(e) => handleInputChange(e, matchId)}
-        disabled={hasGameStarted}
-      />
-    );
-  }
-
-  function renderInfo(teamInfo, isAway) {
-    return (
-      <div className={`container-team-info ${isAway ? "right" : ""}`}>
-        <span className="team">{teamInfo.name}</span>
-        {renderAcronym(teamInfo.acronym)}
-        <button className="button">Vencedor</button>
-      </div>
-    );
-  }
-
-  function renderTeams(awayTeam, homeTeam, id, matchDate) {
-    const homeTeamInfo = getTeamInfo(homeTeam);
-    const awayTeamInfo = getTeamInfo(awayTeam);
-
-    return (
-      <>
-        {renderInfo(homeTeamInfo)}
-        {renderInput(TEAMS_INPUT.HOME_TEAM, id, matchDate)}
-        <span className="versus">x</span>
-        {renderInput(TEAMS_INPUT.AWAY_TEAM, id, matchDate)}
-        {renderInfo(awayTeamInfo, true)}
-      </>
-    );
-  }
-
   function renderMatchsCard(dayMatchs) {
     return dayMatchs.map((match) => {
-      const { awayTeam, homeTeam, matchDate, id, finished } = match;
+      const { awayTeam, homeTeam, matchDate, id } = match;
       const formattedDate = formatMatchDate(matchDate);
       const matchStatusInfo = getMatchStatusInfo(match);
 
@@ -174,9 +101,12 @@ export function Matchs({ matchs = [], selectedStage, poolId }) {
             <span className="date">{formattedDate}</span>
             {renderMatchTeamsStatus(awayTeam, homeTeam)}
           </div>
-          <div className="container-teams">
-            {renderTeams(awayTeam, homeTeam, id, matchDate)}
-          </div>
+          <Teams
+            match={match}
+            userGuesses={userGuesses}
+            setUserGuesses={setUserGuesses}
+            matchStatusInfo={matchStatusInfo}
+          />
           <div className="container-status">
             <span className="status">{matchStatusInfo.text}</span>
           </div>

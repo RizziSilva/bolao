@@ -1,0 +1,129 @@
+@use "@styles" as *;
+
+@mixin card-status($color) {
+  border-color: $color;
+
+  > .container-team-info {
+    > .team,
+    > .acronym {
+      color: $color;
+    }
+  }
+
+  > .input {
+    color: $color;
+  }
+
+  > .input {
+    border-color: $color;
+  }
+
+  > .versus {
+    color: $color;
+  }
+}
+
+#container-team-component {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+
+  &.perfect {
+    @include card-status($royal-gold);
+  }
+
+  &.correct {
+    @include card-status($dark-green);
+  }
+
+  &.wrong {
+    @include card-status($muted-red);
+  }
+
+  > .container-team-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+    width: 50%;
+
+    &.right {
+      justify-content: flex-start;
+      margin-left: 10px;
+
+      > .button {
+        left: 0;
+        right: unset;
+      }
+    }
+
+    > .team {
+      color: $mint-cream;
+      font-size: 16px;
+      margin-right: 10px;
+      max-width: 90px;
+      overflow: hidden;
+      text-align: end;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    > .acronym {
+      color: $mint-cream;
+      font-size: 20px;
+      width: 45px;
+    }
+
+    > .button {
+      position: absolute;
+      bottom: -20px;
+      background-color: transparent;
+      border-radius: 10px;
+      border: none;
+      color: $mint-cream;
+      cursor: pointer;
+      padding: 0;
+      right: 0;
+      border: 1px solid $mint-cream;
+      padding: 1px 10px;
+
+      &.selected {
+        border-color: $royal-gold;
+        color: $royal-gold;
+      }
+    }
+  }
+
+  > .input {
+    align-items: center;
+    background-color: $black;
+    border: 1px solid $mint-cream;
+    color: $mint-cream;
+    display: flex;
+    font-size: 20px;
+    height: 40px;
+    justify-content: center;
+    margin: 10px;
+    text-align: center;
+    width: 40px;
+  }
+
+  > .versus {
+    color: $mint-cream;
+    font-size: 18px;
+  }
+
+  @include match-card-mobile {
+    justify-content: center;
+    width: 100%;
+  }
+
+  @media (max-width: 500px) {
+    > .container-team-info {
+      > .team {
+        display: none;
+      }
+    }
+  }
+}
