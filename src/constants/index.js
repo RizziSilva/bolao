@@ -20,4 +20,8 @@ export {
   FIRST_ROUND_UPDATE,
   KNOCKOUT_MATCHES,
 } from "./knockout-migration";
-export { EIGHT_FINALS_UPDATE } from "./eight_finals_migration";
+export {
+  EIGHT_FINALS_UPDATE,
+  EIGHT_FINALS_LAST_UPDATE,
+} from "./eight_finals_migration";
+export { QUARTER_FINALS_TEAMS_UPDATE } from "./quarter_finals_migrations";

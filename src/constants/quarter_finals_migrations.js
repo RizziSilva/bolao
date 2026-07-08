@@ -1,0 +1,38 @@
+export const QUARTER_FINALS_TEAMS_UPDATE = [
+  {
+    id: "qf_1",
+    homeTeam: 33,
+    awayTeam: 10,
+    homeScore: null,
+    awayScore: null,
+    penaltyWinner: null,
+    finished: false,
+  },
+  {
+    id: "qf_2",
+    homeTeam: 29,
+    awayTeam: 25,
+    homeScore: null,
+    awayScore: null,
+    penaltyWinner: null,
+    finished: false,
+  },
+  {
+    id: "qf_3",
+    homeTeam: 35,
+    awayTeam: 45,
+    homeScore: null,
+    awayScore: null,
+    penaltyWinner: null,
+    finished: false,
+  },
+  {
+    id: "qf_4",
+    homeTeam: 37,
+    awayTeam: 6,
+    homeScore: null,
+    awayScore: null,
+    penaltyWinner: null,
+    finished: false,
+  },
+];

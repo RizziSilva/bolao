@@ -47,7 +47,7 @@ export function Matchs({ matchs = [], selectedStage, poolId }) {
       toast.success("Sucesso ao salvar os palpites.");
     } catch (error) {
       console.error(error);
-      toast.success("Erro ao salvar os palpites.");
+      toast.error("Erro ao salvar os palpites.");
     }
   }
 

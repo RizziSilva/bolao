@@ -3,7 +3,7 @@ import { TEAMS_INPUT } from "../../constants";
 import "./style.scss";
 
 export function Teams({ match, userGuesses, setUserGuesses, matchStatusInfo }) {
-  const { awayTeam, homeTeam, matchDate, id, finished } = match;
+  const { awayTeam, homeTeam, matchDate, id, finished, penaltyWinner } = match;
 
   function handleInputChange(event) {
     const { name, value } = event.target;
@@ -35,8 +35,9 @@ export function Teams({ match, userGuesses, setUserGuesses, matchStatusInfo }) {
     const homeTeamScore = getInputValue(TEAMS_INPUT.HOME_TEAM);
     const hasGuess = wayTeamScore !== "" && homeTeamScore !== "";
     const isTie = wayTeamScore === homeTeamScore;
+    const isGuessingWithTie = hasGuess && isTie;
 
-    return hasGuess && isTie && !finished;
+    return isGuessingWithTie;
   }
 
   function getTeamInfo(team) {
@@ -51,10 +52,7 @@ export function Teams({ match, userGuesses, setUserGuesses, matchStatusInfo }) {
   function getInputValue(name) {
     const guess = userGuesses[id];
 
-    if (guess) {
-      debugger;
-      return guess[name] ?? "";
-    }
+    if (guess) return guess[name] ?? "";
 
     return "";
   }
@@ -68,14 +66,11 @@ export function Teams({ match, userGuesses, setUserGuesses, matchStatusInfo }) {
   function renderTieWinnerButton(teamId) {
     const showButton = getShouldShowPenaltyWinnerButton();
 
-    if (!showButton) {
-      debugger;
-      return null;
-    }
+    if (!showButton) return null;
 
     const hasGameStarted = new Date() > new Date(matchDate);
     const matchGuess = userGuesses[id];
-    const isSelected = matchGuess.penaltyWinner === teamId;
+    const isSelected = matchGuess?.penaltyWinner === teamId;
 
     return (
       <button

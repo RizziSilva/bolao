@@ -86,8 +86,10 @@ export function isCorrectGuess(guess, match) {
 }
 
 export function isCorrectWinner(guess, match) {
-  return (
+  const correctWinner =
     Math.sign(guess.homeScore - guess.awayScore) ===
-    Math.sign(match.homeScore - match.awayScore)
-  );
+    Math.sign(match.homeScore - match.awayScore);
+  const correctPenaltyWinner = guess.penaltyWinner === match.penaltyWinner;
+
+  return guess.penaltyWinner ? correctPenaltyWinner : correctWinner;
 }

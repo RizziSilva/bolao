@@ -1,5 +1,4 @@
-import { EIGHT_FINALS_UPDATE } from "../constants/eight_finals_migration.js";
-import { FIRST_ROUND_FINAL_UPDATE } from "../constants/knockout-migration.js";
+import { QUARTER_FINALS_TEAMS_UPDATE } from "../constants/quarter_finals_migrations.js";
 import { initializeApp } from "firebase/app";
 import { getFirestore, doc, updateDoc } from "firebase/firestore";
 
@@ -19,7 +18,7 @@ async function updateRound32() {
   console.log("Updating Round of 32 matches...");
 
   await Promise.all(
-    FIRST_ROUND_FINAL_UPDATE.map(
+    QUARTER_FINALS_TEAMS_UPDATE.map(
       ({
         id,
         homeTeam,
@@ -41,7 +40,7 @@ async function updateRound32() {
   );
 
   console.log(
-    `${FIRST_ROUND_FINAL_UPDATE.length} matches updated successfully.`,
+    `${QUARTER_FINALS_TEAMS_UPDATE.length} matches updated successfully.`,
   );
   process.exit(0);
 }

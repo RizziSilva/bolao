@@ -8,6 +8,17 @@
     > .acronym {
       color: $color;
     }
+
+    > .button {
+      border-color: $color;
+      color: $color;
+
+      &.selected {
+        background-color: $color;
+        border-color: $color;
+        color: $mint-cream;
+      }
+    }
   }
 
   > .input {
@@ -42,8 +53,8 @@
   }
 
   > .container-team-info {
-    display: flex;
     align-items: center;
+    display: flex;
     justify-content: flex-end;
     position: relative;
     width: 50%;
@@ -91,6 +102,9 @@
       &.selected {
         border-color: $royal-gold;
         color: $royal-gold;
+      }
+      &:disabled {
+        cursor: unset;
       }
     }
   }
