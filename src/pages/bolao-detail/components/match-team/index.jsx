@@ -7,10 +7,11 @@ export function Teams({ match, userGuesses, setUserGuesses, matchStatusInfo }) {
 
   function handleInputChange(event) {
     const { name, value } = event.target;
+    const valueAsNumber = Number(value);
 
     setUserGuesses((current) => {
       const editing = current[id] || {};
-      const newGuess = { ...editing, matchId: id, [name]: value };
+      const newGuess = { ...editing, matchId: id, [name]: valueAsNumber };
 
       return { ...current, [id]: { ...newGuess } };
     });

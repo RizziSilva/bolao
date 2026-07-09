@@ -5,7 +5,10 @@ import { useAuth } from "@context";
 import { guessService } from "@services";
 import { useAsyncRequest } from "@hooks";
 import { isCorrectGuess, isCorrectWinner } from "@utils";
-import { MATCH_STATUS_INFO } from "../../constants";
+import {
+  MATCH_STATUS_INFO,
+  SAVE_GUESSES_DEFAULT_MESSAGES,
+} from "../../constants";
 import {
   formatMatchDate,
   formatMatchsDayDate,
@@ -15,7 +18,7 @@ import { ConfirmButton } from "../confirm-button";
 import { Teams } from "../match-team";
 import "./style.scss";
 
-export function Matchs({ matchs = [], selectedStage, poolId }) {
+export function Matchs({ matches = [], selectedStage, poolId }) {
   const [userGuesses, setUserGuesses] = useState({});
   const { user } = useAuth();
   const { saveMatchesGuesses, getAllMatchesGuesses } = guessService();
@@ -47,8 +50,19 @@ export function Matchs({ matchs = [], selectedStage, poolId }) {
       toast.success("Sucesso ao salvar os palpites.");
     } catch (error) {
       console.error(error);
-      toast.error("Erro ao salvar os palpites.");
+      const errorMessage = error.message || SAVE_GUESSES_DEFAULT_MESSAGES;
+
+      toast.error(errorMessage);
     }
+  }
+
+  function getIsConfirmButtonDisabled() {
+    const now = new Date();
+    const hasAtLeastOneGameNotStarted = matches.some(({ matches }) =>
+      matches.some(({ matchDate }) => new Date(matchDate) > now),
+    );
+
+    return !hasAtLeastOneGameNotStarted;
   }
 
   function getMatchStatusInfo(match) {
@@ -131,8 +145,11 @@ export function Matchs({ matchs = [], selectedStage, poolId }) {
 
   return (
     <>
-      <ConfirmButton handleConfirmClick={handleSaveGuesses} />
-      <div id="container-matchs-component">{renderDayMatchs(matchs)}</div>
+      <ConfirmButton
+        handleConfirmClick={handleSaveGuesses}
+        disabled={getIsConfirmButtonDisabled()}
+      />
+      <div id="container-matchs-component">{renderDayMatchs(matches)}</div>
     </>
   );
 }

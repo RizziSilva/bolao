@@ -43,7 +43,7 @@ export function Stages({ selectedStage, poolId }) {
           <Matchs
             poolId={poolId}
             selectedStage={selectedStage}
-            matchs={getSelectedStageMatches()}
+            matches={getSelectedStageMatches()}
           />
         );
     }

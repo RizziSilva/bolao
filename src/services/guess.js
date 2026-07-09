@@ -52,6 +52,13 @@ export function guessService() {
 
     guesses.forEach(({ matchId, homeScore, awayScore, penaltyWinner }) => {
       const ref = doc(db, "pools", poolId, "guesses", `${userId}_${matchId}`);
+
+      const isTie = Number(homeScore) - Number(awayScore) === 0;
+      if (isTie && !penaltyWinner)
+        throw new Error(
+          "Escolha o vencedor nos penâltis para os jogos empatados.",
+        );
+
       batch.set(ref, {
         userId,
         matchId,
@@ -60,7 +67,7 @@ export function guessService() {
         awayScore: Number(awayScore),
         points: 0,
         createdAt: new Date(),
-        penaltyWinner,
+        penaltyWinner: penaltyWinner ?? null,
       });
     });
 
