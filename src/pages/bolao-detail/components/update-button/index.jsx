@@ -39,7 +39,7 @@ export function UpdateButton({ pool }) {
     const isCreator = createdBy === user.email;
     const isInCooldown = getIsInCooldown();
 
-    if (!isCreator || false) return null;
+    if (!isCreator || isInCooldown) return null;
 
     return (
       <button onClick={handleClick} id="update-button-component">
