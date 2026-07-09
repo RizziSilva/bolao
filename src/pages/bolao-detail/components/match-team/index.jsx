@@ -3,7 +3,7 @@ import { TEAMS_INPUT } from "../../constants";
 import "./style.scss";
 
 export function Teams({ match, userGuesses, setUserGuesses, matchStatusInfo }) {
-  const { awayTeam, homeTeam, matchDate, id, finished, penaltyWinner } = match;
+  const { awayTeam, homeTeam, matchDate, id } = match;
 
   function handleInputChange(event) {
     const { name, value } = event.target;
@@ -112,11 +112,11 @@ export function Teams({ match, userGuesses, setUserGuesses, matchStatusInfo }) {
 
   return (
     <div id="container-team-component" className={`${matchStatusInfo.class}`}>
-      {renderInfo(awayTeam, false)}
+      {renderInfo(homeTeam, false)}
       {renderInput(TEAMS_INPUT.HOME_TEAM)}
       <span className="versus">x</span>
       {renderInput(TEAMS_INPUT.AWAY_TEAM)}
-      {renderInfo(homeTeam, true)}
+      {renderInfo(awayTeam, true)}
     </div>
   );
 }
