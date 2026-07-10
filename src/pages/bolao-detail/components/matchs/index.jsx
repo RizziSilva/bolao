@@ -92,24 +92,69 @@ export function Matchs({ matches = [], selectedStage, poolId }) {
     return stage?.label || "";
   }
 
+  function renderActualScore(
+    awayScore,
+    homeScore,
+    awayTeam,
+    homeTeam,
+    penaltyWinner,
+    finished,
+  ) {
+    if (!finished) return null;
+
+    const homeTeamInfo = getTeamById(homeTeam);
+    const awayTeamInfo = getTeamById(awayTeam);
+    const isTied = awayScore === homeScore;
+    const isAwayTeamPenaltyWinner = isTied && awayTeam === penaltyWinner;
+    const isHomeTeamPenaltyWinner = isTied && homeTeam === penaltyWinner;
+
+    return (
+      <span className="text game-score">
+        <span
+          className={`home ${isHomeTeamPenaltyWinner ? "penalty-winner" : ""}`}
+        >
+          {homeTeamInfo.acronym}
+        </span>{" "}
+        {homeScore} x {awayScore}{" "}
+        <span
+          className={`away ${isAwayTeamPenaltyWinner ? "penalty-winner" : ""}`}
+        >
+          {awayTeamInfo.acronym}
+        </span>
+      </span>
+    );
+  }
+
   function renderMatchTeamsStatus(awayTeam, homeTeam) {
     const homeTeamInfo = getTeamById(homeTeam);
     const awayTeamInfo = getTeamById(awayTeam);
     const hasTeamInfos = !!homeTeamInfo && !!awayTeamInfo;
 
-    if (hasTeamInfos) return null;
+    if (!hasTeamInfos) return <span className="status">A definir</span>;
 
-    return <span className="status">A definir</span>;
+    return null;
   }
 
   function renderMatchsCard(dayMatchs) {
     return dayMatchs.map((match) => {
-      const { awayTeam, homeTeam, matchDate, id } = match;
+      const {
+        awayTeam,
+        homeTeam,
+        matchDate,
+        id,
+        awayScore,
+        homeScore,
+        finished,
+        penaltyWinner,
+      } = match;
       const formattedDate = formatMatchDate(matchDate);
       const matchStatusInfo = getMatchStatusInfo(match);
 
       return (
-        <div key={id} className={`container-match ${matchStatusInfo.class}`}>
+        <div
+          key={id}
+          className={`container-match ${matchStatusInfo.class} ${finished ? "" : "unfinished"}`}
+        >
           <div className="container-info">
             <span className="info">{getStageLabel()}</span>
             <span className="date">{formattedDate}</span>
@@ -124,6 +169,14 @@ export function Matchs({ matches = [], selectedStage, poolId }) {
           <div className="container-status">
             <span className="status">{matchStatusInfo.text}</span>
           </div>
+          {renderActualScore(
+            awayScore,
+            homeScore,
+            awayTeam,
+            homeTeam,
+            penaltyWinner,
+            finished,
+          )}
         </div>
       );
     });

@@ -16,6 +16,10 @@
       color: $color;
     }
   }
+
+  > .game-score {
+    color: $color;
+  }
 }
 
 #container-matchs-component {
@@ -50,9 +54,11 @@
       border-radius: 10px;
       border: 0.5px solid $mint-cream;
       display: flex;
+      height: 82px;
       justify-content: space-between;
       margin-bottom: 10px;
       padding: 10px;
+      position: relative;
 
       &.perfect {
         @include card-status($royal-gold);
@@ -70,9 +76,16 @@
         opacity: 0.5;
       }
 
+      &.unfinished {
+        > .container-info {
+          justify-content: center;
+        }
+      }
+
       > .container-info {
         display: flex;
         flex-direction: column;
+        height: 100%;
 
         > .info {
           color: $clear-text;
@@ -100,6 +113,18 @@
           color: $mint-cream;
         }
       }
+
+      > .game-score {
+        bottom: 5px;
+        color: $mint-cream;
+        left: 10px;
+        position: absolute;
+        width: 150px;
+
+        > .penalty-winner {
+          text-decoration: underline;
+        }
+      }
     }
   }
 
@@ -107,6 +132,7 @@
     > .container-day-matchs {
       > .container-match {
         flex-direction: column;
+        height: 126px;
         width: 100%;
 
         > .container-info {
