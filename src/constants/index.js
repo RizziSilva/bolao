@@ -24,4 +24,8 @@ export {
   EIGHT_FINALS_UPDATE,
   EIGHT_FINALS_LAST_UPDATE,
 } from "./eight_finals_migration";
-export { QUARTER_FINALS_TEAMS_UPDATE } from "./quarter_finals_migrations";
+export {
+  QUARTER_FINALS_TEAMS_UPDATE,
+  QUARTER_FINALS_RESULTS_UPDATE,
+} from "./quarter-finals-migrations";
+export { SEMI_FINALS_TEAMS_UPDATE } from "./semi-finals-migration";

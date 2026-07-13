@@ -1,4 +1,8 @@
-import { QUARTER_FINALS_TEAMS_UPDATE } from "../constants/quarter_finals_migrations.js";
+import {
+  QUARTER_FINALS_TEAMS_UPDATE,
+  QUARTER_FINALS_RESULTS_UPDATE,
+} from "../constants/quarter-finals-migrations.js";
+import { SEMI_FINALS_TEAMS_UPDATE } from "../constants/semi-finals-migration.js";
 import { initializeApp } from "firebase/app";
 import { getFirestore, doc, updateDoc } from "firebase/firestore";
 
