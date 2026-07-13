@@ -26,4 +26,4 @@ dist-ssr
 .env
 .env.local
 
-migrations/service-account.json
+src/migrations/service-account.json
