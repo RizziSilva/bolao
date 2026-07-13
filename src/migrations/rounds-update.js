@@ -1,28 +1,18 @@
-import {
-  QUARTER_FINALS_TEAMS_UPDATE,
-  QUARTER_FINALS_RESULTS_UPDATE,
-} from "../constants/quarter-finals-migrations.js";
+import { getFirestore } from "firebase-admin/firestore";
+import { initializeApp, cert } from "firebase-admin/app";
+import { createRequire } from "module";
 import { SEMI_FINALS_TEAMS_UPDATE } from "../constants/semi-finals-migration.js";
-import { initializeApp } from "firebase/app";
-import { getFirestore, doc, updateDoc } from "firebase/firestore";
 
-const firebaseConfig = {
-  apiKey: process.env.VITE_FIREBASE_API_KEY,
-  authDomain: process.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.VITE_FIREBASE_APP_ID,
-};
-
-const app = initializeApp(firebaseConfig);
+const require = createRequire(import.meta.url);
+const serviceAccount = require("./service-account.json");
+const app = initializeApp({ credential: cert(serviceAccount) });
 const db = getFirestore(app);
 
-async function updateRound32() {
-  console.log("Updating Round of 32 matches...");
+async function matchesUpdate() {
+  console.log("Updating matches...");
 
   await Promise.all(
-    QUARTER_FINALS_TEAMS_UPDATE.map(
+    SEMI_FINALS_TEAMS_UPDATE.map(
       ({
         id,
         homeTeam,
@@ -32,7 +22,7 @@ async function updateRound32() {
         homeScore,
         awayScore,
       }) =>
-        updateDoc(doc(db, "matches", id), {
+        db.collection("matches").doc(id).update({
           homeTeam,
           awayTeam,
           penaltyWinner,
@@ -44,12 +34,12 @@ async function updateRound32() {
   );
 
   console.log(
-    `${QUARTER_FINALS_TEAMS_UPDATE.length} matches updated successfully.`,
+    `${SEMI_FINALS_TEAMS_UPDATE.length} matches updated successfully.`,
   );
   process.exit(0);
 }
 
-updateRound32().catch((err) => {
+matchesUpdate().catch((err) => {
   console.error(err);
   process.exit(1);
 });
