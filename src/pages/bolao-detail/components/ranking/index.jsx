@@ -39,7 +39,7 @@ export function Ranking({ poolId }) {
   function renderMembers() {
     return members.map(
       ({ position, displayName, perfectScores, totalPoints }) => (
-        <div className="container-user-info">
+        <div key={position} className="container-user-info">
           <span className="text">{position}</span>
           <span className="text name">{displayName}</span>
           <span className="text">{perfectScores}</span>
