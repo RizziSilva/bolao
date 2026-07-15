@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useAuth } from "@context";
 import { useAsyncRequest } from "@hooks";
 import { STAGES } from "@constants";
-import { poolService } from "@services";
-import { Stages, StagesSelector, UpdateButton } from "./components";
+import { poolService, userService } from "@services";
+import { Stages, StagesSelector, UpdateButton, Ranking } from "./components";
 import "./style.scss";
 
 export function BolaoDetail() {
   const [pool, setPool] = useState({});
   const [selectedStage, setSelectedStage] = useState(STAGES.GROUP.id);
+  const [isShowingRanking, setIsShowingRanking] = useState(false);
+  const { user } = useAuth();
   const { code } = useParams();
   const { getPoolByCode } = poolService();
+  const { updateMemberInfo } = userService();
   const { asyncRequest } = useAsyncRequest();
 
   useEffect(() => {
@@ -29,11 +33,68 @@ export function BolaoDetail() {
     getPoolInfo();
   }, [code]);
 
+  useEffect(() => {
+    async function updateUserInfoOnPool() {
+      try {
+        await asyncRequest(() => updateMemberInfo(pool.id, user));
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    if (pool.id) updateUserInfoOnPool();
+  }, [pool.id]);
+
+  function handleRankingClick() {
+    setIsShowingRanking((prev) => !prev);
+  }
+
+  function getRankingButtonIcon() {
+    if (isShowingRanking) return <div className="pool">B</div>;
+
+    return (
+      <div className="holder">
+        <div className="rank one" />
+        <div className="rank two" />
+        <div className="rank three" />
+      </div>
+    );
+  }
+
+  function renderRankingButton() {
+    return (
+      <button onClick={handleRankingClick} className="button ranking">
+        {getRankingButtonIcon()}
+      </button>
+    );
+  }
+
+  function renderGuessing() {
+    return (
+      <>
+        <StagesSelector
+          selectedStage={selectedStage}
+          setSelectedStage={setSelectedStage}
+        />
+        <Stages selectedStage={selectedStage} poolId={pool.id} />
+      </>
+    );
+  }
+
+  function renderContent() {
+    if (isShowingRanking) return <Ranking poolId={pool.id} />;
+
+    return renderGuessing();
+  }
+
   return (
     <div id="container-my-group-id">
       <div className="container-content">
         <div className="container-upper">
-          <span className="title">{pool.name}</span>
+          <div className="container-title">
+            <span className="title">{pool.name}</span>
+            {renderRankingButton()}
+          </div>
           <div className="container-actions">
             <UpdateButton pool={pool} />
             <div className="container-game-code">
@@ -42,11 +103,7 @@ export function BolaoDetail() {
             </div>
           </div>
         </div>
-        <StagesSelector
-          selectedStage={selectedStage}
-          setSelectedStage={setSelectedStage}
-        />
-        <Stages selectedStage={selectedStage} poolId={pool.id} />
+        {renderContent()}
       </div>
     </div>
   );

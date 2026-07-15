@@ -1,4 +1,11 @@
-import { doc, writeBatch } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  orderBy,
+  query,
+  writeBatch,
+} from "firebase/firestore";
 import { calculatePoolUsersPoints } from "@utils";
 import { matchesService } from "./matches";
 import { guessService } from "./guess";
@@ -39,7 +46,20 @@ export function pointsService() {
     await batch.commit();
   }
 
+  async function getPoolRanking(poolId) {
+    const membersRef = collection(db, "pools", poolId, "members");
+    const membersQuery = query(membersRef, orderBy("totalPoints", "desc"));
+    const snap = await getDocs(membersQuery);
+
+    return snap.docs.map((doc, index) => ({
+      position: index + 1,
+      userId: doc.id,
+      ...doc.data(),
+    }));
+  }
+
   return {
     calculatePoolPoints,
+    getPoolRanking,
   };
 }

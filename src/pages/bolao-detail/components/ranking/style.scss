@@ -1,0 +1,54 @@
+@use "@styles" as *;
+
+#container-ranking-component {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  > .container-user-info,
+  > .container-header {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: 80px 1fr 100px 100px;
+    width: 100%;
+  }
+
+  > .container-header {
+    background-color: $graphite;
+    border-radius: 8px;
+    border: 1px solid $mint-cream;
+    margin-bottom: 10px;
+    padding: 10px;
+
+    > .text {
+      color: $mint-cream;
+    }
+  }
+
+  > .container-user-info {
+    background-color: $graphite;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    padding: 10px;
+
+    > .text {
+      color: $mint-cream;
+      padding-left: 5px;
+
+      &.name {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  @include mobile {
+    > .container-user-info,
+    > .container-header {
+      grid-template-columns: 60px 1fr 65px 60px;
+    }
+  }
+}

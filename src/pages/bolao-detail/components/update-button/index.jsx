@@ -36,7 +36,7 @@ export function UpdateButton({ pool }) {
 
   function renderContent() {
     const { createdBy } = pool;
-    const isCreator = createdBy === user.email;
+    const isCreator = createdBy === user.uid;
     const isInCooldown = getIsInCooldown();
 
     if (!isCreator || isInCooldown) return null;
