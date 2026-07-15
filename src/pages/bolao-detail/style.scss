@@ -25,8 +25,8 @@
       width: 100%;
 
       > .container-title {
-        display: flex;
         align-items: center;
+        display: flex;
 
         > .title {
           color: $mint-cream;
@@ -35,15 +35,44 @@
         }
 
         > .button {
-          width: 30px;
-          height: 30px;
-          cursor: pointer;
+          align-items: center;
           background-color: $graphite;
-          border: 1px solid $mint-cream;
           border-radius: 5px;
+          border: 1px solid $mint-cream;
+          cursor: pointer;
+          display: flex;
+          height: 30px;
+          justify-content: center;
+          width: 30px;
 
-          > .image {
-            width: 20px;
+          > .holder {
+            align-items: flex-end;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+
+            > .rank {
+              background: $mint-cream;
+              width: 15px;
+
+              &.one {
+                height: 5px;
+              }
+
+              &.two {
+                height: 10px;
+              }
+
+              &.three {
+                height: 15px;
+              }
+            }
+          }
+
+          > .pool {
+            color: $mint-cream;
+            font-size: 16px;
+            font-weight: bold;
           }
         }
       }

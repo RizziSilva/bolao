@@ -39,7 +39,9 @@ export function poolService() {
 
     const memberRef = doc(db, "pools", pool.id, "members", userId);
     const memberSnap = await getDoc(memberRef);
-    if (memberSnap.exists()) throw new Error("Você já está nesse bolão.");
+    const alreadyJoined = memberSnap.exists();
+
+    if (alreadyJoined) throw new Error("Você já está nesse bolão.");
 
     await setDoc(memberRef, {
       totalPoints: 0,
