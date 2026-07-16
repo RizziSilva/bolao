@@ -5,13 +5,20 @@ import { useAuth } from "@context";
 import { useAsyncRequest } from "@hooks";
 import { STAGES } from "@constants";
 import { poolService, userService } from "@services";
-import { Stages, StagesSelector, UpdateButton, Ranking } from "./components";
+import {
+  Stages,
+  StagesSelector,
+  UpdateButton,
+  Ranking,
+  Stastitics,
+} from "./components";
+import { CONTENT_BUTTONS, CONTENT_KEYS } from "./constants";
 import "./style.scss";
 
 export function BolaoDetail() {
   const [pool, setPool] = useState({});
   const [selectedStage, setSelectedStage] = useState(STAGES.GROUP.id);
-  const [isShowingRanking, setIsShowingRanking] = useState(false);
+  const [contentKey, setContentKey] = useState("");
   const { user } = useAuth();
   const { code } = useParams();
   const { getPoolByCode } = poolService();
@@ -45,14 +52,18 @@ export function BolaoDetail() {
     if (pool.id) updateUserInfoOnPool();
   }, [pool.id]);
 
-  function handleRankingClick() {
-    setIsShowingRanking((prev) => !prev);
+  function handleContentButtonClick(key) {
+    setContentKey((prev) => {
+      const isSameKey = prev === key;
+
+      return isSameKey ? "" : key;
+    });
   }
 
-  function getRankingText() {
-    if (isShowingRanking) return "Jogos";
+  function getContentButtonText(text, key) {
+    if (key === contentKey) return "Jogos";
 
-    return "Ranking";
+    return text;
   }
 
   function renderGuessing() {
@@ -68,9 +79,29 @@ export function BolaoDetail() {
   }
 
   function renderContent() {
-    if (isShowingRanking) return <Ranking poolId={pool.id} />;
+    switch (contentKey) {
+      case CONTENT_KEYS.RANKING:
+        return <Ranking poolId={pool.id} />;
+      case CONTENT_KEYS.STATISTICS:
+        return <Stastitics />;
+      default:
+        return renderGuessing();
+    }
+  }
 
-    return renderGuessing();
+  function renderContentButtons() {
+    return CONTENT_BUTTONS.map(({ text, key }) => {
+      const buttonText = getContentButtonText(text, key);
+
+      return (
+        <button
+          onClick={() => handleContentButtonClick(key)}
+          className="content-button"
+        >
+          {buttonText}
+        </button>
+      );
+    });
   }
 
   return (
@@ -88,11 +119,7 @@ export function BolaoDetail() {
             </div>
           </div>
         </div>
-        <div className="container-ranking-button">
-          <button onClick={handleRankingClick} className="ranking-button">
-            {getRankingText()}
-          </button>
-        </div>
+        <div className="container-ranking-button">{renderContentButtons()}</div>
         {renderContent()}
       </div>
     </div>
