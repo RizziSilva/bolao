@@ -49,24 +49,10 @@ export function BolaoDetail() {
     setIsShowingRanking((prev) => !prev);
   }
 
-  function getRankingButtonIcon() {
-    if (isShowingRanking) return <div className="pool">B</div>;
+  function getRankingText() {
+    if (isShowingRanking) return "Jogos";
 
-    return (
-      <div className="holder">
-        <div className="rank one" />
-        <div className="rank two" />
-        <div className="rank three" />
-      </div>
-    );
-  }
-
-  function renderRankingButton() {
-    return (
-      <button onClick={handleRankingClick} className="button ranking">
-        {getRankingButtonIcon()}
-      </button>
-    );
+    return "Ranking";
   }
 
   function renderGuessing() {
@@ -93,7 +79,6 @@ export function BolaoDetail() {
         <div className="container-upper">
           <div className="container-title">
             <span className="title">{pool.name}</span>
-            {renderRankingButton()}
           </div>
           <div className="container-actions">
             <UpdateButton pool={pool} />
@@ -102,6 +87,11 @@ export function BolaoDetail() {
               <span className="code">{pool.code}</span>
             </div>
           </div>
+        </div>
+        <div className="container-ranking-button">
+          <button onClick={handleRankingClick} className="ranking-button">
+            {getRankingText()}
+          </button>
         </div>
         {renderContent()}
       </div>

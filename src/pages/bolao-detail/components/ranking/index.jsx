@@ -41,7 +41,7 @@ export function Ranking({ poolId }) {
       ({ position, displayName, perfectScores, totalPoints }) => (
         <div key={position} className="container-user-info">
           <span className="text">{position}</span>
-          <span className="text name">{displayName}</span>
+          <span className="text name">{displayName || "DESCONHECIDO"}</span>
           <span className="text">{perfectScores}</span>
           <span className="text">{totalPoints}</span>
         </div>

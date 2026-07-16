@@ -28,4 +28,7 @@ export {
   QUARTER_FINALS_TEAMS_UPDATE,
   QUARTER_FINALS_RESULTS_UPDATE,
 } from "./quarter-finals-migrations";
-export { SEMI_FINALS_TEAMS_UPDATE } from "./semi-finals-migration";
+export {
+  SEMI_FINALS_TEAMS_UPDATE,
+  SEMI_FINALS_RESULTS_UPDATE,
+} from "./semi-finals-migration";

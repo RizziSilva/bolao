@@ -1,7 +1,7 @@
 import { getFirestore } from "firebase-admin/firestore";
 import { initializeApp, cert } from "firebase-admin/app";
 import { createRequire } from "module";
-import { SEMI_FINALS_TEAMS_UPDATE } from "../constants/semi-finals-migration.js";
+import { SEMI_FINALS_RESULTS_UPDATE } from "../constants/semi-finals-migration.js";
 
 const require = createRequire(import.meta.url);
 const serviceAccount = require("./service-account.json");
@@ -12,7 +12,7 @@ async function matchesUpdate() {
   console.log("Updating matches...");
 
   await Promise.all(
-    SEMI_FINALS_TEAMS_UPDATE.map(
+    SEMI_FINALS_RESULTS_UPDATE.map(
       ({
         id,
         homeTeam,
@@ -34,7 +34,7 @@ async function matchesUpdate() {
   );
 
   console.log(
-    `${SEMI_FINALS_TEAMS_UPDATE.length} matches updated successfully.`,
+    `${SEMI_FINALS_RESULTS_UPDATE.length} matches updated successfully.`,
   );
   process.exit(0);
 }
