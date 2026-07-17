@@ -1,24 +1,74 @@
-export const TOP_SCORES = [
-  { name: "Kylian Mbappé", team: "FRA", teamId: 33, goals: 8, assists: 3 },
-  { name: "Lionel Messi", team: "ARG", teamId: 37, goals: 8, assists: 2 },
-  { name: "Erling Haaland", team: "NOR", teamId: 35, goals: 7, assists: 0 },
-  { name: "Harry Kane", team: "ING", teamId: 45, goals: 6, assists: 1 },
-  { name: "Jude Bellingham", team: "ING", teamId: 45, goals: 6, assists: 1 },
-  { name: "Ousmane Dembélé", team: "FRA", teamId: 33, goals: 5, assists: 2 },
-  { name: "Mikel Oyarzabal", team: "ESP", teamId: 29, goals: 5, assists: 1 },
-  { name: "Lautaro Martínez", team: "ARG", teamId: 37, goals: 4, assists: 1 },
-  { name: "Julián Álvarez", team: "ARG", teamId: 37, goals: 4, assists: 0 },
-  { name: "Vinicius Jr.", team: "BRA", teamId: 9, goals: 3, assists: 2 },
-];
-
-export const TOP_ASSISTS = [
-  { name: "Michael Olise", team: "FRA", teamId: 33, assists: 5 },
-  { name: "Bruno Guimarães", team: "BRA", teamId: 9, assists: 4 },
-  { name: "Martin Ødegaard", team: "NOR", teamId: 35, assists: 4 },
-  { name: "Brahim Díaz", team: "ESP", teamId: 29, assists: 4 },
-  { name: "Lionel Messi", team: "ARG", teamId: 37, assists: 2 },
-  { name: "Lamine Yamal", team: "ESP", teamId: 29, assists: 2 },
-  { name: "Kylian Mbappé", team: "FRA", teamId: 33, assists: 3 },
+export const PLAYER_STASTITICS = [
+  {
+    name: "Kylian Mbappé",
+    team: "França",
+    acronym: "FRA",
+    goals: 8,
+    assists: 3,
+  },
+  {
+    name: "Lionel Messi",
+    acronym: "ARG",
+    team: "Argentina",
+    goals: 8,
+    assists: 2,
+  },
+  {
+    name: "Erling Haaland",
+    team: "Noruega",
+    acronym: "NOR",
+    goals: 7,
+    assists: 0,
+  },
+  {
+    name: "Harry Kane",
+    team: "Inglaterra",
+    acronym: "ING",
+    goals: 6,
+    assists: 1,
+  },
+  {
+    name: "Jude Bellingham",
+    team: "Inglaterra",
+    acronym: "ING",
+    goals: 6,
+    assists: 1,
+  },
+  {
+    name: "Ousmane Dembélé",
+    team: "França",
+    acronym: "FRA",
+    goals: 5,
+    assists: 2,
+  },
+  {
+    name: "Mikel Oyarzabal",
+    team: "Espanha",
+    acronym: "ESP",
+    goals: 5,
+    assists: 1,
+  },
+  {
+    name: "Lautaro Martínez",
+    team: "Argentina",
+    acronym: "ARG",
+    goals: 4,
+    assists: 1,
+  },
+  {
+    name: "Julián Álvarez",
+    team: "Argentina",
+    acronym: "ARG",
+    goals: 4,
+    assists: 0,
+  },
+  {
+    name: "Vinicius Jr.",
+    team: "Brasil",
+    acronym: "BRA",
+    goals: 3,
+    assists: 2,
+  },
 ];
 
 export const TEAM_STATS = [
@@ -129,4 +179,25 @@ export const CURIOSITIES = [
   { text: "Argentina venceu 3 jogos seguidos após estar perdendo" },
   { text: "Bellingham marcou 6 gols e foi o herói da Inglaterra" },
   { text: "Espanha e Argentina se encontram na final — top 2 do ranking FIFA" },
+];
+
+export const STASTITICS_STAGES = {
+  PLAYER: {
+    label: "Jogadores",
+    id: "1",
+  },
+  TEAMS: {
+    label: "Times",
+    id: "2",
+  },
+  CURIOSITIES: {
+    label: "Curiosidades",
+    id: "3",
+  },
+};
+
+export const STASTITICS_STAGES_ARRAY = [
+  STASTITICS_STAGES.PLAYER,
+  STASTITICS_STAGES.TEAMS,
+  STASTITICS_STAGES.CURIOSITIES,
 ];

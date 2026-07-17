@@ -5,4 +5,10 @@ export { MATCH_STATUS_INFO, GROUPS_STATUS_INFO } from "./status";
 export { GROUP_STAGE_STARTING_DATE, TODAY } from "./dates";
 export { SAVE_GUESSES_DEFAULT_MESSAGES } from "./messages";
 export { CONTENT_BUTTONS, CONTENT_KEYS } from "./content";
-export { CURIOSITIES, TEAM_STATS, TOP_ASSISTS, TOP_SCORES } from "./stastitics";
+export {
+  CURIOSITIES,
+  TEAM_STATS,
+  PLAYER_STASTITICS,
+  STASTITICS_STAGES,
+  STASTITICS_STAGES_ARRAY,
+} from "./stastitics";
