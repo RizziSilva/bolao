@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { StastiticsSelector } from "../stastitics-selector";
+import { TeamStastitics } from "../team-stastitics";
 import { PlayerStastitics } from "../players-stastitics";
 import { STASTITICS_STAGES } from "../../constants";
 import "./style.scss";
@@ -13,6 +14,8 @@ export function Stastitics() {
     switch (selectedStastitics) {
       case STASTITICS_STAGES.PLAYER.id:
         return <PlayerStastitics />;
+      case STASTITICS_STAGES.TEAMS.id:
+        return <TeamStastitics />;
       default:
         return <PlayerStastitics />;
     }
