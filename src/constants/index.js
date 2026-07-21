@@ -32,3 +32,4 @@ export {
   SEMI_FINALS_TEAMS_UPDATE,
   SEMI_FINALS_RESULTS_UPDATE,
 } from "./semi-finals-migration";
+export { FINALS_MIGRATION } from "./finals_migration";
